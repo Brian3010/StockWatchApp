@@ -2,10 +2,17 @@ import { useEffect, useState } from 'react';
 import { StockLists } from '../@types/StockLists';
 import { getStockLists } from '../firebase/index';
 
+
+// convert an object to array of key and value pars []
+// const objectToArrays
+
+
 function App() {
   const [stockLists, setStockLists] = useState<StockLists>();
   // const [chickenList, setChickenList] = useState<Record<keyof Chicken_Inventory,number>>();
   //TODO: Make an array of key and value for Chicken_inventory
+  //* prolly use useContext or localStorage for persistent display num of item
+
 
   useEffect(() => {
     (async () => {
