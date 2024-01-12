@@ -7,8 +7,6 @@ import { collectionRef } from './config';
 
 // get collection data
 export const getStockLists = () => {
-  // getDocs(collectionRef);
-
   return new Promise<StockLists>((resolve, reject) => {
     (async () => {
       try {
@@ -17,13 +15,13 @@ export const getStockLists = () => {
         const snapshot = stockSnapShot.docs.map(doc => {
           return doc.data();
         });
-        console.log(snapshot); // [{},{}];
+        // console.log(snapshot); // [{},{}];
 
         const stockLists: StockLists = {
           Chicken_Inventory: snapshot[0] as Chicken_Inventory,
           Sauce_Inventory: snapshot[1] as Sauce_Inventory,
         };
-        console.log(stockLists);
+        // console.log(stockLists);
 
         return resolve(stockLists);
       } catch (error) {
