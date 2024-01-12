@@ -1,9 +1,9 @@
 import { getDocs } from 'firebase/firestore';
 
-import { Chicken_Inventory } from '../@types/Chicken_Inventory';
-import { StockLists } from '../@types/StockLists';
+import { Chicken_Inventory } from '../types/Chicken_Inventory';
+import { Sauce_Inventory } from '../types/Sauce_Inventory';
+import { StockLists } from '../types/StockLists';
 import { collectionRef } from './config';
-import { Sauce_Inventory } from '../@types/Sauce_inventory';
 
 // get collection data
 export const getStockLists = () => {
@@ -19,7 +19,10 @@ export const getStockLists = () => {
         });
         console.log(snapshot); // [{},{}];
 
-        const stockLists:StockLists = { Chicken_Inventory:snapshot[0] as Chicken_Inventory,Sauce_Inventory:snapshot[1] as Sauce_Inventory}
+        const stockLists: StockLists = {
+          Chicken_Inventory: snapshot[0] as Chicken_Inventory,
+          Sauce_Inventory: snapshot[1] as Sauce_Inventory,
+        };
         console.log(stockLists);
 
         return resolve(stockLists);
