@@ -3,7 +3,7 @@ import StockForms from './pages/stockForms';
 function App() {
   return (
     <>
-      <h1>StockWatch App</h1>
+      <h1>StockWatch</h1>
       <StockForms />
     </>
   );

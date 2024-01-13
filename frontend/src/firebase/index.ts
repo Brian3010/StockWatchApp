@@ -15,7 +15,7 @@ export const getStockLists = () => {
         const snapshot = stockSnapShot.docs.map(doc => {
           return doc.data();
         });
-        // console.log(snapshot); // [{},{}];
+        console.log(snapshot); // [{},{}];
 
         const stockLists: StockLists = {
           Chicken_Inventory: snapshot[0] as Chicken_Inventory,
