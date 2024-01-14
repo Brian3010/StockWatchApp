@@ -1,5 +1,5 @@
 import { FirebaseOptions, initializeApp } from 'firebase/app';
-import { collection, getFirestore } from 'firebase/firestore';
+import { collection, doc, getFirestore } from 'firebase/firestore';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig: FirebaseOptions = {
@@ -23,6 +23,8 @@ export const db = getFirestore(firebaseApp);
 
 // collection ref
 export const collectionRef = collection(db, 'StockLists'); // provide types for return response
+
+export const chickenDocRef = doc(db, 'StockLists', `chicken_inventory`);
 
 // typescript with firebase: https://medium.com/javascript-in-plain-english/using-firestore-with-typescript-in-the-v9-sdk-cf36851bb099
 

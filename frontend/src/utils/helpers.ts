@@ -8,13 +8,13 @@ export const replaceUnderscore = (string: string) => string.replace(/_/g, ' ');
 export const convertChickenStockToArray = (obj: StockLists['Chicken_Inventory']) => {
   const list: [string, number][] = [];
 
-  const chickenStockKeys: Array<keyof Chicken_Inventory> = ['whole_chicken', 'boneless_chicken', 'chicken_wing'];
+  const chickenStockKeys: Array<keyof Chicken_Inventory> = ['whole_chicken', 'boneless_chicken', 'chicken_wings'];
 
   // for (const [key, value] of Object.entries(obj)) {
   //   list.push([key, value]);
   // }
 
-  for (let i = 0; i < Object.keys(obj).length; i++) {
+  for (let i = 0; i < chickenStockKeys.length; i++) {
     list.push([chickenStockKeys[i], obj[chickenStockKeys[i]]]);
   }
 

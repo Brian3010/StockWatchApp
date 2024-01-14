@@ -1,9 +1,9 @@
-import { getDocs } from 'firebase/firestore';
+import { getDocs, updateDoc } from 'firebase/firestore';
 
 import { Chicken_Inventory } from '../types/Chicken_Inventory';
 import { Sauce_Inventory } from '../types/Sauce_Inventory';
 import { StockLists } from '../types/StockLists';
-import { collectionRef } from './config';
+import { chickenDocRef, collectionRef } from './config';
 
 // get collection data
 export const getStockLists = () => {
@@ -13,6 +13,7 @@ export const getStockLists = () => {
         const stockSnapShot = await getDocs(collectionRef);
 
         const snapshot = stockSnapShot.docs.map(doc => {
+          // console.log(doc);
           return doc.data();
         });
         console.log(snapshot); // [{},{}];
@@ -29,4 +30,21 @@ export const getStockLists = () => {
       }
     })();
   });
+};
+
+export const updateChickenStockCount = async (items:{item:string,count:number}[]) => {
+
+  
+  try {
+
+    items.map(async (it) => {
+      await updateDoc(chickenDocRef, { [it.item]: it.count });
+    })
+
+
+    // const res = await updateDoc(chickenDocRef, { [item]: count });
+    // console.log({ res });
+  } catch (error) {
+    console.error('error: ', error);
+  }
 };

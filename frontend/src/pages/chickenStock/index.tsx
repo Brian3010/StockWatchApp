@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useState } from 'react';
+import { updateChickenStockCount } from '../../firebase';
 import { StockLists } from '../../types/StockLists';
 import { convertChickenStockToArray, replaceUnderscore } from '../../utils/helpers';
 
@@ -17,7 +18,11 @@ export default function ChickenStockList({ chickenStock }: ChickenStockListProps
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    console.log('clicked');
+    console.log({ eventTarget: event.target });
+
+    // updateChickenStockCount('whole_chicken', 5);
+    const items = [{item: 2 }, { item: 3 }];
+    updateChickenStockCount(items);
   };
 
   return (
@@ -26,8 +31,9 @@ export default function ChickenStockList({ chickenStock }: ChickenStockListProps
         {chickenList &&
           chickenList.map((item, index) => (
             <div key={index}>
-              <label htmlFor={item[0]}>{replaceUnderscore(item[0])}</label>
+              <label htmlFor={item[0]}>{replaceUnderscore(String(item[0]))}</label>
               <input type="number" name={item[0]} id={item[0]} />
+              <p>last stock: {item[1]}</p>
             </div>
           ))}
 
