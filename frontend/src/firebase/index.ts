@@ -32,15 +32,12 @@ export const getStockLists = () => {
   });
 };
 
-export const updateChickenStockCount = async (items:{item:string,count:number}[]) => {
-
-  
+export const updateChickenStockCount = async (items: Chicken_Inventory) => {
   try {
-
-    items.map(async (it) => {
-      await updateDoc(chickenDocRef, { [it.item]: it.count });
-    })
-
+    Object.entries(items).map(async it => {
+      await updateDoc(chickenDocRef, { [it[0]]: parseInt(it[1]) });
+      // console.log(it);
+    });
 
     // const res = await updateDoc(chickenDocRef, { [item]: count });
     // console.log({ res });

@@ -9,6 +9,7 @@ interface SauceStockProps {
 export default function SauceStockList({ sauceStock }: SauceStockProps) {
   const [sauceList, setSauceList] = useState<[string, number][]>();
 
+
   useEffect(() => {
     setSauceList(convertSauceStockToArray(sauceStock));
   }, [sauceStock]);

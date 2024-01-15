@@ -33,8 +33,8 @@ export default function StockForms() {
       <h3>Chicken Stock List</h3>
       {stockLists && <ChickenStockList chickenStock={stockLists.Chicken_Inventory} />}
 
-      {/* <h3>Sauce Stock List</h3>
-      {stockLists && <SauceStockList sauceStock={stockLists.Sauce_Inventory} />} */}
+      <h3>Sauce Stock List</h3>
+      {stockLists && <SauceStockList sauceStock={stockLists.Sauce_Inventory} />}
     </>
   );
 }
