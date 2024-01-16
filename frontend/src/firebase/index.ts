@@ -1,30 +1,27 @@
-import { getDocs, updateDoc } from 'firebase/firestore';
-
-import { Chicken_Inventory } from '../types/Chicken_Inventory';
-import { Sauce_Inventory } from '../types/Sauce_Inventory';
-import { StockLists } from '../types/StockLists';
+import { DocumentData, getDocs, updateDoc } from 'firebase/firestore';
 import { chickenDocRef, collectionRef } from './config';
 
 // get collection data
+export interface StockListsData {
+  data: DocumentData[];
+  options: string[];
+}
 export const getStockLists = () => {
-  return new Promise<StockLists>((resolve, reject) => {
+  return new Promise<StockListsData>((resolve, reject) => {
     (async () => {
       try {
         const stockSnapShot = await getDocs(collectionRef);
 
-        const snapshot = stockSnapShot.docs.map(doc => {
-          // console.log(doc);
+        const docOptions: string[] = [];
+        const snapShot = stockSnapShot.docs.map(doc => {
+          docOptions.push(doc.id);
           return doc.data();
         });
-        console.log(snapshot); // [{},{}];
+        // console.log(snapShot[0]); // [{chicken_inventory},{sauce_chicken}];
 
-        const stockLists: StockLists = {
-          Chicken_Inventory: snapshot[0] as Chicken_Inventory,
-          Sauce_Inventory: snapshot[1] as Sauce_Inventory,
-        };
-        // console.log(stockLists);
+        // const convertedData = convertFirebaseData(snapShot);
 
-        return resolve(stockLists);
+        return resolve({ data: snapShot, options: docOptions });
       } catch (error) {
         return reject(error);
       }
@@ -32,16 +29,22 @@ export const getStockLists = () => {
   });
 };
 
-export const updateChickenStockCount = async (items: Chicken_Inventory) => {
-  try {
-    Object.entries(items).map(async it => {
-      await updateDoc(chickenDocRef, { [it[0]]: parseInt(it[1]) });
-      // console.log(it);
-    });
+export const ChickenInventoryFields = ['whole_chicken', 'boneless_chicken', 'chicken_wings'];
+export const SauceInventoryFields = ['chicken_powder'];
 
-    // const res = await updateDoc(chickenDocRef, { [item]: count });
-    // console.log({ res });
-  } catch (error) {
-    console.error('error: ', error);
-  }
+export const updateStockCount = async (docId: string, items: DocumentData) => {
+  return new Promise((resolve, reject) => {
+    (async () => {
+      try {
+        Object.entries(items).map(async it => {
+          await updateDoc(chickenDocRef(docId), { [it[0]]: parseInt(it[1]) });
+          // console.log(it);
+        });
+
+        return resolve('succesfully updated');
+      } catch (error) {
+        return reject(error);
+      }
+    })();
+  });
 };

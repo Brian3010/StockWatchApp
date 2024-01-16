@@ -24,7 +24,7 @@ export const db = getFirestore(firebaseApp);
 // collection ref
 export const collectionRef = collection(db, 'StockLists'); // provide types for return response
 
-export const chickenDocRef = doc(db, 'StockLists', `chicken_inventory`);
+export const chickenDocRef = (docId: string) => doc(db, 'StockLists', docId);
 
 // typescript with firebase: https://medium.com/javascript-in-plain-english/using-firestore-with-typescript-in-the-v9-sdk-cf36851bb099
 
