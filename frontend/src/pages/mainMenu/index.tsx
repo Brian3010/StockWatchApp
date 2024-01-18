@@ -5,7 +5,7 @@ export default function MainMenu() {
     <>
       <div>display a menu including stock count and enddate check, stock report</div>
       {/* <Outlet /> */}
-      <Link to="/main-menu/stocks">Stocks</Link>
+      <Link to="/main-menu/stocks">Stock Lists</Link>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { StockListsData, getStockLists } from '../../firebase';
+import { StockListsData, getStockListsV1, getStockListsV2 } from '../../firebase';
 import { replaceUnderscore } from '../../utils/helpers';
 
 import StockList from '../StockLists';
@@ -13,7 +13,9 @@ export default function StockForms() {
   useEffect(() => {
     (async () => {
       try {
-        const stock = await getStockLists();
+        const stock = await getStockListsV1();
+        const stockV2 = await getStockListsV2();
+        console.log({ stockV2 });
         setStockLists(stock);
         setCategories(prev => {
           prev = stock.options.map(opt => ({
@@ -37,7 +39,7 @@ export default function StockForms() {
 
   return (
     <>
-      <h3>Chicken Stock List</h3>
+      <h3>Stock Lists</h3>
 
       {/* render categories */}
       <div>
