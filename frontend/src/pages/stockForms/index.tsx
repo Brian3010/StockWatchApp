@@ -1,11 +1,17 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { StockListsData, getStockListsV1, getStockListsV2 } from '../../firebase';
+import {
+  GetStockListsResponse,
+  getAllCategories,
+  getStockCountByCategory,
+  getStockListsV1,
+  getStockListsV2,
+} from '../../firebase';
 import { replaceUnderscore } from '../../utils/helpers';
 
 import StockList from '../StockLists';
 
 export default function StockForms() {
-  const [stockLists, setStockLists] = useState<StockListsData>();
+  // const [stockLists, setStockLists] = useState<GetStockListsResponse>();
   const [categories, setCategories] = useState<{ value: string; label: string }[]>();
   const [selectedValue, setSelectedValue] = useState<string>();
   //* prolly use useContext or localStorage for persistent display num of item
@@ -13,14 +19,14 @@ export default function StockForms() {
   useEffect(() => {
     (async () => {
       try {
-        const stock = await getStockListsV1();
-        const stockV2 = await getStockListsV2();
-        console.log({ stockV2 });
-        setStockLists(stock);
+        // const stock = await getStockListsV1();
+        // const stock = await getStockListsV2();
+        // console.log({ stock });
+        const categories = await getAllCategories();
         setCategories(prev => {
-          prev = stock.options.map(opt => ({
-            value: opt,
-            label: opt.charAt(0).toUpperCase() + replaceUnderscore(opt.slice(1)),
+          prev = categories.map(c => ({
+            value: c,
+            label: c.charAt(0).toUpperCase() + replaceUnderscore(c.slice(1)),
           }));
           return prev;
         });
@@ -57,8 +63,13 @@ export default function StockForms() {
       </div>
 
       <div>
-        {stockLists && selectedValue && (
-          <StockList key={selectedValue} category={selectedValue} stockList={stockLists.data} />
+        {selectedValue && (
+          <StockList
+            key={selectedValue}
+            category={selectedValue}
+            // stockItems={stockLists.itemNames}
+            // yesterdayStock={stockLists.yesterdayStock}
+          />
         )}
       </div>
 

@@ -30,20 +30,20 @@ export const getStockListsV1 = () => {
 };
 
 // this function format the serverTimeStamp to DD-MM-YY
-const formatServerTimeStamp = (time: Timestamp) => {
-  const serverTime = time.toDate();
-  const formattedDate = `${('0' + serverTime.getDate()).slice(-2)}-${('0' + (serverTime.getMonth() + 1)).slice(
-    -2
-  )}-${serverTime.getFullYear()}`;
+// const formatServerTimeStamp = (time: Timestamp) => {
+//   const serverTime = time.toDate();
+//   const formattedDate = `${('0' + serverTime.getDate()).slice(-2)}-${('0' + (serverTime.getMonth() + 1)).slice(
+//     -2
+//   )}-${serverTime.getFullYear()}`;
 
-  console.log({ formattedDate });
-  return formattedDate; // DD-MM-YY;
-};
+//   console.log({ formattedDate });
+//   return formattedDate; // DD-MM-YY;
+// };
 
 // this function get yesterday time in server, return '19 January 2024 at 03:57:19 UTC+11'
 const getYesterdayServerTime = () => {
   const yesterdayDate = new Date(Date.now() - 86400000);
-  const serverTime = Timestamp.fromDate(yesterdayDate).toDate().toLocaleDateString().replace(/\//g, '-');
+  const serverTime = Timestamp.fromDate(yesterdayDate).toDate().toLocaleDateString('en-AU').replace(/\//g, '-');
 
   // console.log({ serverTime });
 
@@ -51,10 +51,10 @@ const getYesterdayServerTime = () => {
 };
 
 // this function checks if yesterday stock is available
-const hasYesterdayStock = () => {};
+// const hasYesterdayStock = () => {};
 
 // this function gets the stockLists from database
-interface GetStockListsResponse {
+export interface GetStockListsResponse {
   itemNames: string[][];
   yesterdayStock: DocumentData[];
   options: string[];
@@ -70,21 +70,16 @@ export const getStockListsV2 = () => {
         const itemNames: string[][] = [];
         const yesterdayStock: DocumentData[] = [];
         const yesterdayDate = getYesterdayServerTime();
+        console.log({ yesterdayDate });
 
         stockSnapShot.docs.map(doc => {
           console.log(doc.data());
           options.push(doc.id);
           itemNames.push(doc.data()['item_names']);
-          //TODO: check if yesterday stock exists, if not returns empty DocumentData | Object
-          //TODO: has a function to return the timestamp in format DD-MM-YYYY to place as key in doc.data()['formatedDate']
-          yesterdayStock.push(doc.data()[yesterdayDate]);
-          //* if the date not found, undefined will be assigned.
+          yesterdayStock.push(doc.data()[yesterdayDate]); // if the date not found, undefined will be assigned
 
           // return doc.data();
         });
-        // console.log(snapShot[0]); // [{chicken_inventory},{sauce_chicken}];
-
-        // const convertedData = convertFirebaseData(snapShot);
 
         return resolve({ itemNames, options, yesterdayStock });
       } catch (error) {
@@ -110,6 +105,46 @@ export const updateStockCount = async (docId: string, items: DocumentData) => {
         });
 
         return resolve('succesfully updated');
+      } catch (error) {
+        return reject(error);
+      }
+    })();
+  });
+};
+
+// this function returns all subcollections as categories
+
+export const getAllCategories = () => {
+  return new Promise<string[]>((resolve, reject) => {
+    (async () => {
+      try {
+        const snapShot = await getDocs(collectionRef);
+        const categories: string[] = [];
+        snapShot.docs.map(doc => {
+          categories.push(doc.id);
+        });
+
+        return resolve(categories);
+      } catch (error) {
+        return reject(error);
+      }
+    })();
+  });
+};
+
+interface GetStockCountByCategoryT {
+  StockCountList: DocumentData;
+}
+export const getStockCountByCategory = (category: string) => {
+  return new Promise<GetStockCountByCategoryT>((resolve, reject) => {
+    (async () => {
+      try {
+        const docSnap = await getDoc(documentRef(category));
+        if (docSnap.data()) {
+          return resolve({ StockCountList: docSnap.data()! });
+        } else {
+          throw new Error('stock not found');
+        }
       } catch (error) {
         return reject(error);
       }

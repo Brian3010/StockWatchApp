@@ -5,30 +5,38 @@ import useInputFields from '../../hooks/useInputFields';
 import { convertDocDataToArray } from '../../utils/helpers';
 
 interface StockListProps {
-  stockList: DocumentData[];
+  // stockList: DocumentData[];
+  // stockItems: string[][];
+  // yesterdayStock: DocumentData[];
   category: string;
 }
 
-export default function StockList({ stockList, category }: StockListProps) {
-  const [dataList, setDataList] = useState<[string, number][]>();
+export default function StockList({ category }: StockListProps) {
+  const [stockCount, setStockCount] = useState<DocumentData[]>();
+  const [itemNames, setItemName] = useState<string[]>();
   const [inputLength, setInputLength] = useState<number>();
   // console.log(stockList);
+
   // call custom hook to use the chicken form
   const { inputData, setInputData } = useInputFields();
 
+  // useEffect(() => {
+  //   //* use switch if to many inventories,
+  //   console.log(category);
+  //   // check which inventory is selected, then extract value using keys in {...InventoryFields}
+  //   if (category === 'chicken_inventory') {
+  //     setDataList(convertDocDataToArray(stockList[0], ChickenInventoryFields));
+  //     setInputLength(ChickenInventoryFields.length);
+  //   }
+  //   if (category === 'sauce_inventory') {
+  //     setDataList(convertDocDataToArray(stockList[1], SauceInventoryFields));
+  //     setInputLength(SauceInventoryFields.length);
+  //   }
+  // }, [category, stockList, inputData]);
+
   useEffect(() => {
-    //* use switch if to many inventories,
-    console.log(category);
-    // check which inventory is selected, then extract value using keys in {...InventoryFields}
-    if (category === 'chicken_inventory') {
-      setDataList(convertDocDataToArray(stockList[0], ChickenInventoryFields));
-      setInputLength(ChickenInventoryFields.length);
-    }
-    if (category === 'sauce_inventory') {
-      setDataList(convertDocDataToArray(stockList[1], SauceInventoryFields));
-      setInputLength(SauceInventoryFields.length);
-    }
-  }, [category, stockList, inputData]);
+    //TODO: query to get data by categories and display them here
+  }, []);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     // console.log(event.target.value);
@@ -65,15 +73,22 @@ export default function StockList({ stockList, category }: StockListProps) {
   return (
     <>
       <form action="" onSubmit={handleSubmit}>
-        {dataList &&
+        {/* {dataList &&
           dataList.map((item, index) => (
             <div key={index}>
               <label htmlFor={item[0]}>{item[0]}</label>:{' '}
               <input type="number" name={item[0]} id={item[0]} onChange={handleInputChange} />
               <p>last stock: {item[1]}</p>
             </div>
-          ))}
+          ))} */}
 
+        {stockItems.map((item, index) => (
+          <div key={index}>
+            <label htmlFor={item[0]}>{item[0]}</label>:{' '}
+            <input type="number" name={item[0]} id={item[0]} onChange={handleInputChange} />
+            <p>last stock: {item[1]}</p>
+          </div>
+        ))}
         <button type="submit">Update</button>
       </form>
     </>
