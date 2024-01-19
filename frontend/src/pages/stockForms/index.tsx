@@ -1,17 +1,10 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import {
-  GetStockListsResponse,
-  getAllCategories,
-  getStockCountByCategory,
-  getStockListsV1,
-  getStockListsV2,
-} from '../../firebase';
+import { getAllCategories } from '../../firebase';
 import { replaceUnderscore } from '../../utils/helpers';
 
 import StockList from '../StockLists';
 
 export default function StockForms() {
-  // const [stockLists, setStockLists] = useState<GetStockListsResponse>();
   const [categories, setCategories] = useState<{ value: string; label: string }[]>();
   const [selectedValue, setSelectedValue] = useState<string>();
   //* prolly use useContext or localStorage for persistent display num of item
@@ -19,9 +12,6 @@ export default function StockForms() {
   useEffect(() => {
     (async () => {
       try {
-        // const stock = await getStockListsV1();
-        // const stock = await getStockListsV2();
-        // console.log({ stock });
         const categories = await getAllCategories();
         setCategories(prev => {
           prev = categories.map(c => ({
@@ -62,19 +52,7 @@ export default function StockForms() {
         <div>selected category: {selectedValue}</div>
       </div>
 
-      <div>
-        {selectedValue && (
-          <StockList
-            key={selectedValue}
-            category={selectedValue}
-            // stockItems={stockLists.itemNames}
-            // yesterdayStock={stockLists.yesterdayStock}
-          />
-        )}
-      </div>
-
-      {/* <h3>Sauce Stock List</h3>
-      {stockLists && <SauceStockList sauceStock={stockLists.Sauce_Inventory} />} */}
+      <div>{selectedValue && <StockList key={selectedValue} category={selectedValue} />}</div>
     </>
   );
 }

@@ -41,7 +41,7 @@ export const getStockListsV1 = () => {
 // };
 
 // this function get yesterday time in server, return '19 January 2024 at 03:57:19 UTC+11'
-const getYesterdayServerTime = () => {
+export const getYesterdayServerTime = () => {
   const yesterdayDate = new Date(Date.now() - 86400000);
   const serverTime = Timestamp.fromDate(yesterdayDate).toDate().toLocaleDateString('en-AU').replace(/\//g, '-');
 
@@ -133,17 +133,20 @@ export const getAllCategories = () => {
 };
 
 interface GetStockCountByCategoryT {
-  StockCountList: DocumentData;
+  yesterdayCount: DocumentData;
+  itemNames: string[];
 }
 export const getStockCountByCategory = (category: string) => {
   return new Promise<GetStockCountByCategoryT>((resolve, reject) => {
     (async () => {
+      const yesterdayDate = getYesterdayServerTime();
       try {
         const docSnap = await getDoc(documentRef(category));
-        if (docSnap.data()) {
-          return resolve({ StockCountList: docSnap.data()! });
+        if (docSnap.exists()) {
+          // return resolve({ yesterdayCount: docSnap.data()[yesterdayDate], itemNames: docSnap.data().item_names });
+          return resolve({ yesterdayCount: docSnap.data()['18-01-2024'], itemNames: docSnap.data().item_names });
         } else {
-          throw new Error('stock not found');
+          throw new Error(`data from getDoc(${category}) not exist`);
         }
       } catch (error) {
         return reject(error);

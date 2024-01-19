@@ -1,8 +1,8 @@
 import { DocumentData } from 'firebase/firestore';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { ChickenInventoryFields, SauceInventoryFields, updateStockCount } from '../../firebase';
+import { getStockCountByCategory, updateStockCount } from '../../firebase';
 import useInputFields from '../../hooks/useInputFields';
-import { convertDocDataToArray } from '../../utils/helpers';
+import { excludeUnit, replaceUnderscore } from '../../utils/helpers';
 
 interface StockListProps {
   // stockList: DocumentData[];
@@ -12,31 +12,27 @@ interface StockListProps {
 }
 
 export default function StockList({ category }: StockListProps) {
-  const [stockCount, setStockCount] = useState<DocumentData[]>();
-  const [itemNames, setItemName] = useState<string[]>();
+  const [stockCount, setStockCount] = useState<DocumentData>();
+  const [itemNames, setItemNames] = useState<string[]>();
   const [inputLength, setInputLength] = useState<number>();
-  // console.log(stockList);
+  const [isLoading, setIsLoading] = useState(true);
 
   // call custom hook to use the chicken form
   const { inputData, setInputData } = useInputFields();
 
-  // useEffect(() => {
-  //   //* use switch if to many inventories,
-  //   console.log(category);
-  //   // check which inventory is selected, then extract value using keys in {...InventoryFields}
-  //   if (category === 'chicken_inventory') {
-  //     setDataList(convertDocDataToArray(stockList[0], ChickenInventoryFields));
-  //     setInputLength(ChickenInventoryFields.length);
-  //   }
-  //   if (category === 'sauce_inventory') {
-  //     setDataList(convertDocDataToArray(stockList[1], SauceInventoryFields));
-  //     setInputLength(SauceInventoryFields.length);
-  //   }
-  // }, [category, stockList, inputData]);
-
   useEffect(() => {
-    //TODO: query to get data by categories and display them here
-  }, []);
+    (async () => {
+      try {
+        const stock = await getStockCountByCategory(category);
+        setStockCount(stock.yesterdayCount);
+        setItemNames(stock.itemNames);
+        setIsLoading(false);
+        console.log(stock);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, [category]);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     // console.log(event.target.value);
@@ -51,6 +47,8 @@ export default function StockList({ category }: StockListProps) {
   // console.log({ dataList });
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    //TODO: testing input validation
+    //TODO: refactor the update request, as database has changed
     // if input empty, take users those empty
     const isValid =
       inputData &&
@@ -72,25 +70,20 @@ export default function StockList({ category }: StockListProps) {
 
   return (
     <>
-      <form action="" onSubmit={handleSubmit}>
-        {/* {dataList &&
-          dataList.map((item, index) => (
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <form action="" onSubmit={handleSubmit}>
+          {itemNames!.map((item, index) => (
             <div key={index}>
-              <label htmlFor={item[0]}>{item[0]}</label>:{' '}
-              <input type="number" name={item[0]} id={item[0]} onChange={handleInputChange} />
-              <p>last stock: {item[1]}</p>
+              <label htmlFor={excludeUnit(item)}>{replaceUnderscore(item)}</label>:{' '}
+              <input type="number" name={excludeUnit(item)} id={excludeUnit(item)} onChange={handleInputChange} />
+              <p>yesterday's count: {stockCount ? `${stockCount[excludeUnit(item)]}` : 'Hom qua ko dem ha?'}</p>
             </div>
-          ))} */}
-
-        {stockItems.map((item, index) => (
-          <div key={index}>
-            <label htmlFor={item[0]}>{item[0]}</label>:{' '}
-            <input type="number" name={item[0]} id={item[0]} onChange={handleInputChange} />
-            <p>last stock: {item[1]}</p>
-          </div>
-        ))}
-        <button type="submit">Update</button>
-      </form>
+          ))}
+          <button type="submit">Update</button>
+        </form>
+      )}
     </>
   );
 }
