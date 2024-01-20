@@ -6,6 +6,7 @@ import './index.css';
 import ErrorPage from './pages/error-page.tsx';
 import Layout from './pages/Layout.tsx';
 import MainMenu from './pages/mainMenu/index.tsx';
+import StockList from './pages/StockLists/index.tsx';
 // import Root from './pages/root';
 
 const router = createBrowserRouter([
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: '/main-menu/stocks',
         element: <App />,
+      },
+      {
+        path: '/main-menu/stocks/:category',
+        element: <StockList />,
       },
     ],
   },

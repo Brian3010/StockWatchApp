@@ -18,7 +18,6 @@ const firebaseApp = initializeApp(firebaseConfig);
 
 // init services
 export const db = getFirestore(firebaseApp);
-
 // StockLists converter
 
 // collection ref

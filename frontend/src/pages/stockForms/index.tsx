@@ -1,23 +1,25 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getAllCategories } from '../../firebase';
 import { replaceUnderscore } from '../../utils/helpers';
 
-import StockList from '../StockLists';
+import { Link } from 'react-router-dom';
 
 export default function StockForms() {
-  const [categories, setCategories] = useState<{ value: string; label: string }[]>();
-  const [selectedValue, setSelectedValue] = useState<string>();
+  const [categories, setCategories] = useState<{ value: string; label: string; createdAt: string | undefined }[]>();
   //* prolly use useContext or localStorage for persistent display num of item
 
   useEffect(() => {
     (async () => {
       try {
-        const categories = await getAllCategories();
+        const categoryLists = await getAllCategories();
+        // console.log({ categoryLists });
         setCategories(prev => {
-          prev = categories.map(c => ({
-            value: c,
-            label: c.charAt(0).toUpperCase() + replaceUnderscore(c.slice(1)),
+          prev = categoryLists.map(c => ({
+            value: c.category,
+            label: c.category.charAt(0).toUpperCase() + replaceUnderscore(c.category.slice(1)),
+            createdAt: c.createdAt,
           }));
+          console.log({ prev });
           return prev;
         });
 
@@ -29,30 +31,20 @@ export default function StockForms() {
   }, []);
   // categories && categories.length > 0 && console.log(categories);
 
-  const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedValue(event.target.value);
-  };
-
   return (
     <>
       <h3>Stock Lists</h3>
 
       {/* render categories */}
       <div>
-        <label htmlFor="categoties">Categories: </label>
-        <select id="categories" onChange={handleCategoryChange}>
-          <option value="">Select...</option>
-          {categories &&
-            categories.map((c, index) => (
-              <option key={index} label={c.label} value={c.value}>
-                {c.label}
-              </option>
-            ))}
-        </select>
-        <div>selected category: {selectedValue}</div>
+        {categories &&
+          categories.map((c, index) => (
+            <div key={index}>
+              <Link to={`/main-menu/stocks/${c.value}`}>{c.label}</Link>
+              <p>Status: {c.createdAt ? `updated at ${c.createdAt}` : 'Not yet updated'}</p>
+            </div>
+          ))}
       </div>
-
-      <div>{selectedValue && <StockList key={selectedValue} category={selectedValue} />}</div>
     </>
   );
 }

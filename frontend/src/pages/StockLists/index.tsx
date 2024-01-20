@@ -1,29 +1,33 @@
 import { DocumentData } from 'firebase/firestore';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { getStockCountByCategory, updateStockCount } from '../../firebase';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getStockCountByCategory, updateOrAddStockCount } from '../../firebase';
 import useInputFields from '../../hooks/useInputFields';
 import { excludeUnit, replaceUnderscore } from '../../utils/helpers';
 
-interface StockListProps {
-  // stockList: DocumentData[];
-  // stockItems: string[][];
-  // yesterdayStock: DocumentData[];
-  category: string;
-}
+// interface StockListProps {
+//   // stockList: DocumentData[];
+//   // stockItems: string[][];
+//   // yesterdayStock: DocumentData[];
+//   category: string;
+// }
 
-export default function StockList({ category }: StockListProps) {
+export default function StockList() {
+  const { category } = useParams();
+  const navigate = useNavigate();
   const [stockCount, setStockCount] = useState<DocumentData>();
   const [itemNames, setItemNames] = useState<string[]>();
-  const [inputLength, setInputLength] = useState<number>();
+  // const [inputLength, setInputLength] = useState<number>();
   const [isLoading, setIsLoading] = useState(true);
 
   // call custom hook to use the chicken form
   const { inputData, setInputData } = useInputFields();
 
+  // stockcount and inputs setup
   useEffect(() => {
     (async () => {
       try {
-        const stock = await getStockCountByCategory(category);
+        const stock = await getStockCountByCategory(category!);
         setStockCount(stock.yesterdayCount);
         setItemNames(stock.itemNames);
         setIsLoading(false);
@@ -36,6 +40,7 @@ export default function StockList({ category }: StockListProps) {
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     // console.log(event.target.value);
+
     const { name, value } = event.target;
     // onChange - update the key: value dynamically using [name]: value
     setInputData(prev => ({
@@ -47,24 +52,25 @@ export default function StockList({ category }: StockListProps) {
   // console.log({ dataList });
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    //TODO: testing input validation
-    //TODO: refactor the update request, as database has changed
-    // if input empty, take users those empty
+    // check if inputs are empty
+
+    // validate inputs
     const isValid =
       inputData &&
-      Object.keys(inputData).length === inputLength &&
-      Object.values(inputData).every(it => it.trim() !== '');
-    // console.log({ isValid });
+      itemNames &&
+      Object.keys(inputData).length === itemNames.length &&
+      Object.values(inputData).every(value => value);
     if (!isValid || !inputData) return alert("Some item's are empty");
-
     console.log({ inputData });
+
     try {
-      const res = await updateStockCount(category, inputData);
-      //TODO: redirect to homepage/main menu when successfully updated
+      const res = await updateOrAddStockCount(category!, inputData);
       console.log(res);
-      // if (es)
+      //TODO: onSuccess: redirect to homepage and display flash message
+      return navigate('/main-menu/stocks');
     } catch (error) {
       console.error(error);
+      //TODO: onError: redirect to homepage  display error as flash message
     }
   };
 

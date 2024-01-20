@@ -1,7 +1,155 @@
 import { DocumentData, Timestamp, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import { collectionRef, documentRef } from './config';
 
-// get collection data
+const TODAY_DATE = new Date(Date.now()).toLocaleDateString('en-AU').replace(/\//g, '-');
+// this function get yesterday time in server, return '19 January 2024 at 03:57:19 UTC+11'
+export const getYesterdayServerTime = () => {
+  const yesterdayDate = new Date(Date.now() - 86400000);
+  const serverTime = Timestamp.fromDate(yesterdayDate).toDate().toLocaleDateString('en-AU').replace(/\//g, '-');
+
+  // console.log({ serverTime });
+
+  return serverTime;
+};
+
+// {key:number,...} to {todayDate: {key:number,...}}
+export const formatToFirebaseData = (data: Record<string, string>, todayDate: string): DocumentData => {
+  const dataToSubmit: DocumentData = {
+    [todayDate]: Object.entries(data).reduce((obj, item) => Object.assign(obj, { [item[0]]: +item[1] }), {
+      createdAt: Timestamp.now(),
+    }),
+  };
+  // console.log({ dataToSubmit });
+  return dataToSubmit;
+};
+
+export const formatTimeStamp = (time: Timestamp | undefined) => {
+  if (!time) return undefined;
+  const serverTime = time
+    .toDate()
+    .toLocaleString('en-AU', { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true });
+
+  return serverTime;
+};
+
+// check if stock of today has been submitted
+export const hasTodayStockByCategory = (docId: string) => {
+  return new Promise<boolean>((resolve, reject) => {
+    (async () => {
+      try {
+        const docSnap = await getDoc(documentRef(docId));
+        if (docSnap.exists()) {
+          return resolve(Boolean(docSnap.data()[TODAY_DATE]));
+        } else {
+          throw new Error('Document not exist');
+        }
+      } catch (error) {
+        return reject(error);
+      }
+    })();
+  });
+};
+
+// this function returns all subcollections as categories
+export type getAllCategoriesT = { category: string; createdAt: string | undefined }[];
+
+export const getAllCategories = () => {
+  return new Promise<getAllCategoriesT>((resolve, reject) => {
+    (async () => {
+      try {
+        const snapShot = await getDocs(collectionRef);
+        const categories: getAllCategoriesT = [];
+        await Promise.all(
+          snapShot.docs.map(async doc => {
+            // categories.push(doc.id);
+            // console.log(doc.ref);
+            const hasDoc = await hasTodayStockByCategory(doc.id);
+            if (hasDoc) {
+              categories.push({ category: doc.id, createdAt: formatTimeStamp(doc.data()[TODAY_DATE]['createdAt']) });
+            } else {
+              categories.push({ category: doc.id, createdAt: undefined });
+            }
+          })
+        );
+
+        return resolve(categories);
+      } catch (error) {
+        return reject(error);
+      }
+    })();
+  });
+};
+
+// this function get the stock cound list by catogory
+interface GetStockCountByCategoryT {
+  yesterdayCount: DocumentData;
+  itemNames: string[];
+}
+export const getStockCountByCategory = (category: string) => {
+  return new Promise<GetStockCountByCategoryT>((resolve, reject) => {
+    (async () => {
+      const yesterdayDate = getYesterdayServerTime();
+      try {
+        const docSnap = await getDoc(documentRef(category));
+        if (docSnap.exists()) {
+          return resolve({ yesterdayCount: docSnap.data()[yesterdayDate], itemNames: docSnap.data().item_names });
+          // return resolve({ yesterdayCount: docSnap.data()['18-01-2024'], itemNames: docSnap.data().item_names });
+        } else {
+          throw new Error(`data from getDoc(${category}) not exist`);
+        }
+      } catch (error) {
+        return reject(error);
+      }
+    })();
+  });
+};
+
+// update stock by category/docId
+export const updateStockCount = async (docId: string, items: DocumentData) => {
+  return new Promise((resolve, reject) => {
+    (async () => {
+      try {
+        Object.entries(items).map(async it => {
+          await updateDoc(documentRef(docId), { [it[0]]: parseInt(it[1]) });
+          // console.log(it);
+          // await updateDoc(chickenDocRef(docId), {
+          //   createdAt: serverTimestamp(),
+          // });
+        });
+
+        return resolve('succesfully updated');
+      } catch (error) {
+        return reject(error);
+      }
+    })();
+  });
+};
+
+// add new doc, named after date
+
+/*  get today's date, use it as the doc's name
+    get the doc with today's date as id
+    udpate the doc
+    //* updateDoc: if exists -> update doc, if not -> add new doc 
+*/
+
+export const updateOrAddStockCount = (docId: string, data: DocumentData) => {
+  return new Promise((resolve, reject) => {
+    const dataToSubmit = formatToFirebaseData(data, TODAY_DATE);
+
+    (async () => {
+      try {
+        const docSnap = await getDoc(documentRef(docId));
+        await updateDoc(docSnap.ref, dataToSubmit);
+        return resolve('Success! Stock count has been recorded');
+      } catch (error) {
+        return reject(error);
+      }
+    })();
+  });
+};
+
+/* // get collection data
 export interface StockListsData {
   data: DocumentData[];
   options: string[];
@@ -29,29 +177,8 @@ export const getStockListsV1 = () => {
   });
 };
 
-// this function format the serverTimeStamp to DD-MM-YY
-// const formatServerTimeStamp = (time: Timestamp) => {
-//   const serverTime = time.toDate();
-//   const formattedDate = `${('0' + serverTime.getDate()).slice(-2)}-${('0' + (serverTime.getMonth() + 1)).slice(
-//     -2
-//   )}-${serverTime.getFullYear()}`;
-
-//   console.log({ formattedDate });
-//   return formattedDate; // DD-MM-YY;
-// };
-
-// this function get yesterday time in server, return '19 January 2024 at 03:57:19 UTC+11'
-export const getYesterdayServerTime = () => {
-  const yesterdayDate = new Date(Date.now() - 86400000);
-  const serverTime = Timestamp.fromDate(yesterdayDate).toDate().toLocaleDateString('en-AU').replace(/\//g, '-');
-
-  // console.log({ serverTime });
-
-  return serverTime;
-};
-
-// this function checks if yesterday stock is available
-// const hasYesterdayStock = () => {};
+export const ChickenInventoryFields = ['whole_chicken', 'boneless_chicken', 'chicken_wings'];
+export const SauceInventoryFields = ['chicken_powder'];
 
 // this function gets the stockLists from database
 export interface GetStockListsResponse {
@@ -88,69 +215,15 @@ export const getStockListsV2 = () => {
     })();
   });
 };
+// this function format the serverTimeStamp to DD-MM-YY
+export const formatServerTimeStamp = (time: Timestamp) => {
+  const serverTime = time.toDate();
+  const formattedDate = `${('0' + serverTime.getDate()).slice(-2)}-${('0' + (serverTime.getMonth() + 1)).slice(
+    -2
+  )}-${serverTime.getFullYear()}`;
 
-export const ChickenInventoryFields = ['whole_chicken', 'boneless_chicken', 'chicken_wings'];
-export const SauceInventoryFields = ['chicken_powder'];
-
-export const updateStockCount = async (docId: string, items: DocumentData) => {
-  return new Promise((resolve, reject) => {
-    (async () => {
-      try {
-        Object.entries(items).map(async it => {
-          await updateDoc(documentRef(docId), { [it[0]]: parseInt(it[1]) });
-          // console.log(it);
-          // await updateDoc(chickenDocRef(docId), {
-          //   createdAt: serverTimestamp(),
-          // });
-        });
-
-        return resolve('succesfully updated');
-      } catch (error) {
-        return reject(error);
-      }
-    })();
-  });
+  console.log({ formattedDate });
+  return formattedDate; // DD-MM-YY;
 };
 
-// this function returns all subcollections as categories
-
-export const getAllCategories = () => {
-  return new Promise<string[]>((resolve, reject) => {
-    (async () => {
-      try {
-        const snapShot = await getDocs(collectionRef);
-        const categories: string[] = [];
-        snapShot.docs.map(doc => {
-          categories.push(doc.id);
-        });
-
-        return resolve(categories);
-      } catch (error) {
-        return reject(error);
-      }
-    })();
-  });
-};
-
-interface GetStockCountByCategoryT {
-  yesterdayCount: DocumentData;
-  itemNames: string[];
-}
-export const getStockCountByCategory = (category: string) => {
-  return new Promise<GetStockCountByCategoryT>((resolve, reject) => {
-    (async () => {
-      const yesterdayDate = getYesterdayServerTime();
-      try {
-        const docSnap = await getDoc(documentRef(category));
-        if (docSnap.exists()) {
-          // return resolve({ yesterdayCount: docSnap.data()[yesterdayDate], itemNames: docSnap.data().item_names });
-          return resolve({ yesterdayCount: docSnap.data()['18-01-2024'], itemNames: docSnap.data().item_names });
-        } else {
-          throw new Error(`data from getDoc(${category}) not exist`);
-        }
-      } catch (error) {
-        return reject(error);
-      }
-    })();
-  });
-};
+*/
