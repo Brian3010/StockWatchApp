@@ -6,6 +6,7 @@ import './index.css';
 import ErrorPage from './pages/error-page.tsx';
 import Layout from './pages/Layout.tsx';
 import MainMenu from './pages/mainMenu/index.tsx';
+import StockHistory from './pages/stockHistory/index.tsx';
 import StockList from './pages/StockLists/index.tsx';
 // import Root from './pages/root';
 
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: '/main-menu/stocks/:category',
         element: <StockList />,
+      },
+      {
+        path: '/main-menu/stock-history',
+        element: <StockHistory />,
       },
     ],
   },
