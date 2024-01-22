@@ -1,7 +1,8 @@
 import { DocumentData, Timestamp, getDoc, getDocs, updateDoc } from 'firebase/firestore';
+import { replaceUnderscore } from '../utils/helpers';
 import { collectionRef, documentRef } from './config';
 
-const TODAY_DATE = new Date(Date.now()).toLocaleDateString('en-AU').replace(/\//g, '-');
+export const TODAY_DATE = new Date(Date.now()).toLocaleDateString('en-AU').replace(/\//g, '-');
 // this function get yesterday time in server, return '19 January 2024 at 03:57:19 UTC+11'
 export const getYesterdayServerTime = () => {
   const yesterdayDate = new Date(Date.now() - 86400000);
@@ -126,10 +127,9 @@ export const updateStockCount = async (docId: string, items: DocumentData) => {
 };
 
 // add new doc, named after date
-
 /*  get today's date, use it as the doc's name
     get the doc with today's date as id
-    udpate the doc
+    update the doc
     //* updateDoc: if exists -> update doc, if not -> add new doc 
 */
 
@@ -142,6 +142,37 @@ export const updateOrAddStockCount = (docId: string, data: DocumentData) => {
         const docSnap = await getDoc(documentRef(docId));
         await updateDoc(docSnap.ref, dataToSubmit);
         return resolve('Success! Stock count has been recorded');
+      } catch (error) {
+        return reject(error);
+      }
+    })();
+  });
+};
+
+// get stocklist by date
+/* query to database with the selected date
+  get stock list in both sauce and chicken inventory
+  return them, if one or 2 of them don't exist, return undefined/empty
+*/
+export interface GetStockListsByDateT {
+  [key: string]: DocumentData & { label: string };
+}
+export const getStockListsByDate = (date: string) => {
+  return new Promise<GetStockListsByDateT>((resolve, reject) => {
+    (async () => {
+      try {
+        const snapShot = await getDocs(collectionRef);
+        const docData: GetStockListsByDateT = {};
+
+        snapShot.docs.forEach(doc => {
+          const docId = doc.id;
+          // console.log(doc.data());
+          if (doc.data()[date]) {
+            docData[docId] = { ...doc.data()[date], label: replaceUnderscore(docId) };
+          }
+        });
+        // console.log({ docData });
+        return resolve(docData);
       } catch (error) {
         return reject(error);
       }

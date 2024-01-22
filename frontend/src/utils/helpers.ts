@@ -13,3 +13,5 @@ export const convertDocDataToArray = (data: DocumentData, keysArr: string[]) => 
   }
   return fields;
 };
+
+export const isObjectEmpty = (obj: object) => Object.keys(obj).length === 0;
