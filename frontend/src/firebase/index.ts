@@ -155,7 +155,7 @@ export const updateOrAddStockCount = (docId: string, data: DocumentData) => {
   return them, if one or 2 of them don't exist, return undefined/empty
 */
 export interface GetStockListsByDateT {
-  [key: string]: DocumentData & { label: string };
+  [key: string]: DocumentData & { label: string, item_names:string[] };
 }
 export const getStockListsByDate = (date: string) => {
   return new Promise<GetStockListsByDateT>((resolve, reject) => {
@@ -168,7 +168,7 @@ export const getStockListsByDate = (date: string) => {
           const docId = doc.id;
           // console.log(doc.data());
           if (doc.data()[date]) {
-            docData[docId] = { ...doc.data()[date], label: replaceUnderscore(docId) };
+            docData[docId] = { ...doc.data()[date], label: replaceUnderscore(docId), item_names: doc.data().item_names };
           }
         });
         // console.log({ docData });
