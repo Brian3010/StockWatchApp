@@ -3,6 +3,7 @@ import { getAllCategories } from '../../firebase';
 import { replaceUnderscore } from '../../utils/helpers';
 
 import { Link } from 'react-router-dom';
+import BackButton from '../../components/BackButton';
 
 export default function StockForms() {
   const [categories, setCategories] = useState<{ value: string; label: string; createdAt: string | undefined }[]>();
@@ -33,10 +34,13 @@ export default function StockForms() {
 
   return (
     <>
-      <h3>Stock Lists</h3>
+      <div className="flex">
+        <BackButton className="mr-auto" to="../" />
+        <p className="mr-auto font-medium">Stock List</p>
+      </div>
 
       {/* render categories */}
-      <div>
+      <div className="px-1 py-5 sm:px-0">
         {categories &&
           categories.map((c, index) => (
             <div key={index}>

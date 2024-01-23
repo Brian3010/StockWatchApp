@@ -2,26 +2,28 @@ import { useNavigate } from 'react-router-dom';
 
 interface BackButtonProps {
   to: string;
+  className?: string;
 }
 
-export default function BackButton({ to }: BackButtonProps) {
+export default function BackButton({ to, className }: BackButtonProps) {
   const navigate = useNavigate();
   const handleClick = () => {
     return navigate(to);
   };
   return (
-    <button onClick={handleClick} className="font-medium flex items-center">
+    <button onClick={handleClick} className={`font-medium flex items-center ${className}`}>
       <svg
-        className="w-5 h-5 rtl:rotate-180"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
-        stroke-width="1.5"
+        strokeWidth={1.5}
         stroke="currentColor"
+        className="w-5 h-5"
       >
-        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
       </svg>
-      <span>Go back</span>
+
+      {/* <span>Go back</span> */}
     </button>
   );
 }

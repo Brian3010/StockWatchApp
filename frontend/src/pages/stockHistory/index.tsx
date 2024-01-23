@@ -24,17 +24,27 @@ export default function StockHistory() {
 
   return (
     <>
-      <h1>Stock History</h1>
-      <BackButton to="../" />
-      <div>
-        <label htmlFor="stock-history-date">Select Date: </label>
-        <input type="date" id="stock-history-date" onChange={handleDateChange} />
+      {/** heading */}
+      <div className="flex">
+        <BackButton className="mr-auto" to="../" />
+        <p className="mr-auto font-medium">Stock History</p>
       </div>
 
-      <div className="w-full max-w-l px-1 py-3 sm:px-0 text-sm">
-        {(stockLists && !isObjectEmpty(stockLists) && <StockTabs stockLists={stockLists} />) || (
-          <div className="text-center ">Stock not submited on this day</div>
-        )}
+      {/** content */}
+      <div className="px-1 py-5 sm:px-0 text-sm">
+        <div className="mb-3">
+          <label htmlFor="stock-history-date">Select date: </label>
+          <input
+            className="border border-black hover:bg-gray-100"
+            type="date"
+            id="stock-history-date"
+            onChange={handleDateChange}
+          />
+        </div>
+        {stockLists && isObjectEmpty(stockLists) && <div className="text-center">Stock not submited on this day</div>}
+        {!stockLists && <div className="text-center">Please select a date to view the stock</div>}
+
+        {stockLists && !isObjectEmpty(stockLists) && <StockTabs stockLists={stockLists} />}
       </div>
     </>
   );
