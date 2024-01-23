@@ -4,7 +4,7 @@ export default function Layout() {
   return (
     <>
       <h1>StockWatch (NavBar)</h1>
-      <div className="p-2 max-w-sm">
+      <div className="container mx-auto px-2">
         <Outlet />
       </div>
       {/* <h2>Footer here</h2> */}

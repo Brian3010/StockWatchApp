@@ -31,7 +31,7 @@ export default function StockHistory() {
       </div>
 
       {/** content */}
-      <div className="px-1 py-5 sm:px-0 text-sm">
+      <div className="px-1 py-5 sm:px-0">
         <div className="mb-3">
           <label htmlFor="stock-history-date">Select date: </label>
           <input
