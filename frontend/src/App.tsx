@@ -3,10 +3,13 @@ function App() {
   return (
     <>
       <div>
-        <Link to="/main-menu/stocks">Stock Lists</Link>
-      </div>
-      <div>
-        <Link to="/main-menu/stock-history">Stock History</Link>
+        <p className='font-medium text-lg'>Menu</p>
+        <div>
+          <Link to="/main-menu/stocks">Stock Lists</Link>
+        </div>
+        <div>
+          <Link to="/main-menu/stock-history">Stock History</Link>
+        </div>
       </div>
     </>
   );
