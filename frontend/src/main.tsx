@@ -18,11 +18,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <MainMenu />,
+        element: <App />,
       },
       {
         path: '/main-menu/stocks',
-        element: <App />,
+        element: <MainMenu />,
       },
       {
         path: '/main-menu/stocks/:category',
