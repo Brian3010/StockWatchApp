@@ -25,13 +25,13 @@ export default function StockHistory() {
   return (
     <>
       {/** heading */}
-      <div className="flex">
+      <div className="flex border-b p-4">
         <BackButton className="mr-auto" to="../" />
         <p className="mr-auto font-medium">Stock History</p>
       </div>
 
       {/** content */}
-      <div className="px-1 py-5 sm:px-0">
+      <div className="px-1 py-8 sm:px-0">
         <div className="mb-3">
           <label htmlFor="stock-history-date">Select date: </label>
           <input
@@ -41,10 +41,13 @@ export default function StockHistory() {
             onChange={handleDateChange}
           />
         </div>
-        {stockLists && isObjectEmpty(stockLists) && <div className="text-center">Stock not submited on this day</div>}
-        {!stockLists && <div className="text-center">Please select a date to view the stock</div>}
 
-        {stockLists && !isObjectEmpty(stockLists) && <StockTabs stockLists={stockLists} />}
+        {/** stock dipslay */}
+        <div className='mt-10'>
+          {!stockLists && <div className="text-center">Please select a date to view the stock</div>}
+          {stockLists && isObjectEmpty(stockLists) && <div className="text-center">Stock not submited on this day</div>}
+          {stockLists && !isObjectEmpty(stockLists) && <StockTabs stockLists={stockLists} />}
+        </div>
       </div>
     </>
   );

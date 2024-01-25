@@ -34,7 +34,7 @@ export default function StockForms() {
 
   return (
     <>
-      <div className="flex">
+      <div className="flex border-b p-4">
         <BackButton className="mr-auto" to="../" />
         <p className="mr-auto font-medium">Stock List</p>
       </div>
