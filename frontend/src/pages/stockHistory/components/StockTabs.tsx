@@ -1,6 +1,7 @@
 import { Tab } from '@headlessui/react';
 import { Fragment } from 'react';
 import { GetStockListsByDateT } from '../../../firebase';
+import { useHorizontalScroll } from '../../../hooks/useHorizontalScroll';
 import { excludeUnit, replaceUnderscore } from '../../../utils/helpers';
 
 interface StockTabsProps {
@@ -8,16 +9,21 @@ interface StockTabsProps {
 }
 
 export default function StockTabs({ stockLists }: StockTabsProps) {
+  const [scrollRef] = useHorizontalScroll();
+
   return (
     <Tab.Group>
-      <div className="border-b border-gray-200 mb-1">
-        <Tab.List className="flex flex-wrap -mb-px font-medium border-t">
+      <div className="border-y border-gray-200 mb-1 overflow-hidden ">
+        <Tab.List
+          ref={scrollRef}
+          className="flex flex-nowrap gap-1 -mb-px font-medium w-screen scrollbar-hide overflow-x-auto"
+        >
           {Object.keys(stockLists).map((stock, index) => (
             <Tab key={index} as={Fragment}>
               {({ selected }) => (
                 /* Use the `selected` state to conditionally style the selected tab. */
                 <button
-                  className={`inline-block p-2  border-b-2  hover:bg-gray-100 ${
+                  className={`flex-shrink-0 inline-block p-3 border-b-2 hover:bg-gray-100 cursor-grab ${
                     selected ? 'bg-white text-blue-700 border-blue-700' : 'bg-white text-black'
                   }`}
                 >
