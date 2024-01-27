@@ -10,7 +10,10 @@ export const TODAY_DATE = new Date(Date.now())
 // this function get yesterday time in server, return '19 January 2024 at 03:57:19 UTC+11'
 export const getYesterdayServerTime = () => {
   const yesterdayDate = new Date(Date.now() - 86400000);
-  const serverTime = Timestamp.fromDate(yesterdayDate).toDate().toLocaleDateString('en-AU').replace(/\//g, '-');
+  const serverTime = Timestamp.fromDate(yesterdayDate)
+    .toDate()
+    .toLocaleDateString('en-AU', { month: '2-digit', day: 'numeric', year: 'numeric' })
+    .replace(/\//g, '-');
 
   // console.log({ serverTime });
 

@@ -45,37 +45,41 @@ export default function StockForms() {
       </div>
 
       {/* render categories */}
-      <div className="mt-8 rounded-md border">
-        {isLoading ? (
-          <IsLoading />
-        ) : (
-          categories &&
-          categories.map((c, index) => (
-            <Link key={index} className="relative flex flex-col gap-1 border-b p-5" to={`/main-menu/stocks/${c.value}`}>
-              <span className="font-medium">{c.label}</span>
-
-              <span
-                className={`inline-block w-fit rounded-full ${c.createdAt ? `bg-gami-primary` : `bg-gami-background`}  px-3 py-1 text-xs`}
+      {isLoading ? (
+        <IsLoading />
+      ) : (
+        <div className="mt-8 rounded-md border">
+          {categories &&
+            categories.map((c, index) => (
+              <Link
+                key={index}
+                className="relative flex flex-col gap-1 border-b p-5"
+                to={`/main-menu/stocks/${c.value}`}
               >
-                {c.createdAt ? `Updated at ${c.createdAt}` : 'Not yet updated'}
-              </span>
+                <span className="font-medium">{c.label}</span>
 
-              <div className="pr-inherit absolute right-0 top-1/2 -translate-y-1/2 transform">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className=" h-6 w-6 text-gami-link"
+                <span
+                  className={`inline-block w-fit rounded-full ${c.createdAt ? `bg-gami-primary` : `bg-gami-background`}  px-3 py-1 text-xs`}
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                </svg>
-              </div>
-            </Link>
-          ))
-        )}
-      </div>
+                  {c.createdAt ? `Updated at ${c.createdAt}` : 'Not yet updated'}
+                </span>
+
+                <div className="pr-inherit absolute right-0 top-1/2 -translate-y-1/2 transform">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className=" h-6 w-6 text-gami-link"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                  </svg>
+                </div>
+              </Link>
+            ))}
+        </div>
+      )}
     </>
   );
 }
