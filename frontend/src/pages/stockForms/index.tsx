@@ -4,14 +4,17 @@ import { replaceUnderscore } from '../../utils/helpers';
 
 import { Link } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
+import IsLoading from '../../components/IsLoading';
 
 export default function StockForms() {
   const [categories, setCategories] = useState<{ value: string; label: string; createdAt: string | undefined }[]>();
+  const [isLoading, setIsLoading] = useState(false);
   //* prolly use useContext or localStorage for persistent display num of item
 
   useEffect(() => {
     (async () => {
       try {
+        setIsLoading(true);
         const categoryLists = await getAllCategories();
         // console.log({ categoryLists });
         setCategories(prev => {
@@ -24,6 +27,7 @@ export default function StockForms() {
           return prev;
         });
 
+        setIsLoading(false);
         // console.log(stock.options);
       } catch (error) {
         console.error(error);
@@ -31,23 +35,46 @@ export default function StockForms() {
     })();
   }, []);
   // categories && categories.length > 0 && console.log(categories);
+  console.log({ categories });
 
   return (
     <>
-      <div className="flex border-b p-4">
+      <div className="flex border-b p-4 ">
         <BackButton className="mr-auto" to="../" />
-        <p className="mr-auto font-medium">Stock List</p>
+        <p className="mr-auto text-lg font-bold ">Stock List</p>
       </div>
 
       {/* render categories */}
-      <div className="px-1 py-5 sm:px-0">
-        {categories &&
+      <div className="mt-8 rounded-md border">
+        {isLoading ? (
+          <IsLoading />
+        ) : (
+          categories &&
           categories.map((c, index) => (
-            <div key={index}>
-              <Link to={`/main-menu/stocks/${c.value}`}>{c.label}</Link>
-              <p>Status: {c.createdAt ? `updated at ${c.createdAt}` : 'Not yet updated'}</p>
-            </div>
-          ))}
+            <Link key={index} className="relative flex flex-col gap-1 border-b p-5" to={`/main-menu/stocks/${c.value}`}>
+              <span className="font-medium">{c.label}</span>
+
+              <span
+                className={`inline-block w-fit rounded-full ${c.createdAt ? `bg-gami-primary` : `bg-gami-background`}  px-3 py-1 text-xs`}
+              >
+                {c.createdAt ? `Updated at ${c.createdAt}` : 'Not yet updated'}
+              </span>
+
+              <div className="pr-inherit absolute right-0 top-1/2 -translate-y-1/2 transform">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className=" h-6 w-6 text-gami-link"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                </svg>
+              </div>
+            </Link>
+          ))
+        )}
       </div>
     </>
   );

@@ -1,22 +1,26 @@
 import { ChangeEventHandler, useState } from 'react';
 import BackButton from '../../components/BackButton';
+import IsLoading from '../../components/IsLoading';
 import { GetStockListsByDateT, getStockListsByDate } from '../../firebase';
 import { isObjectEmpty } from '../../utils/helpers';
 import StockTabs from './components/StockTabs';
 
 export default function StockHistory() {
   const [stockLists, setStockLists] = useState<GetStockListsByDateT>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDateChange: ChangeEventHandler<HTMLInputElement> = async event => {
     const { value } = event.target;
     const splitValue = value.split('-');
     const dateSelected = `${splitValue[2]}-${splitValue[1]}-${splitValue[0]}`;
-    // console.log({ dateSelected });
+    console.log({ dateSelected });
 
     try {
+      setIsLoading(true);
       const stockLists = await getStockListsByDate(dateSelected);
       console.log({ stockLists });
       setStockLists(stockLists);
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -31,7 +35,7 @@ export default function StockHistory() {
       </div>
 
       {/** content */}
-      <div className="px-1 py-8 sm:px-0">
+      <div className="mt-8 px-1 sm:px-0">
         <div className="mb-3">
           <label htmlFor="stock-history-date">Select date: </label>
           <input
@@ -43,11 +47,17 @@ export default function StockHistory() {
         </div>
 
         {/** stock dipslay */}
-        <div className='mt-10'>
-          {!stockLists && <div className="text-center">Please select a date to view the stock</div>}
-          {stockLists && isObjectEmpty(stockLists) && <div className="text-center">Stock not submited on this day</div>}
-          {stockLists && !isObjectEmpty(stockLists) && <StockTabs stockLists={stockLists} />}
-        </div>
+        {isLoading ? (
+          <IsLoading />
+        ) : (
+          <div className="mt-10">
+            {!stockLists && <div className="text-center">Please select a date to view the stock</div>}
+            {stockLists && isObjectEmpty(stockLists) && (
+              <div className="text-center">Stock not submited on this day</div>
+            )}
+            {stockLists && !isObjectEmpty(stockLists) && <StockTabs stockLists={stockLists} />}
+          </div>
+        )}
       </div>
     </>
   );

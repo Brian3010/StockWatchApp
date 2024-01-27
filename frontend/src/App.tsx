@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 function App() {
   return (
     <>
-      <div className="flex flex-col justify-center gap-3 my-10">
+      <div className="flex flex-col justify-center gap-3 pt-10">
         {/** list of items */}
         <Link className="font-semibold custom-list-item" to="/main-menu/stocks">
           <div className="flex items-center">

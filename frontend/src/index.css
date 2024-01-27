@@ -22,4 +22,12 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  .pr-inherit {
+    padding-right: inherit;
+  }
+
+  .will-change-opacity {
+    will-change: opacity;
+  }
 }

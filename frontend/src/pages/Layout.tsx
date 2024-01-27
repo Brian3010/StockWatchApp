@@ -4,9 +4,9 @@ import NavBar from '../components/NavBar';
 export default function Layout() {
   return (
     <>
-      <div className="container max-w-screen-lg mx-auto ">
+      <div className="container mx-auto max-w-screen-lg ">
         <NavBar />
-        <main className="px-3 h-lvh bg-[#F9F9FB]">
+        <main className="h-lvh bg-[#F9F9FB] px-3">
           <Outlet />
         </main>
         <footer>Footer here</footer>
