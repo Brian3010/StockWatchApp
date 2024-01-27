@@ -2,7 +2,11 @@ import { DocumentData, Timestamp, getDoc, getDocs, updateDoc } from 'firebase/fi
 import { replaceUnderscore } from '../utils/helpers';
 import { collectionRef, documentRef } from './config';
 
-export const TODAY_DATE = new Date(Date.now()).toLocaleDateString('en-AU').replace(/\//g, '-');
+//* Safari and chrome render the date differently, need to modify the options in toLocateDateString({month:'2-digit'}) to accommodate both browser
+export const TODAY_DATE = new Date(Date.now())
+  .toLocaleDateString('en-AU', { month: '2-digit', day: 'numeric', year: 'numeric', hour12: true })
+  .replace(/\//g, '-');
+
 // this function get yesterday time in server, return '19 January 2024 at 03:57:19 UTC+11'
 export const getYesterdayServerTime = () => {
   const yesterdayDate = new Date(Date.now() - 86400000);
@@ -70,7 +74,7 @@ export const getAllCategories = () => {
             } else {
               categories.push({ category: doc.id, createdAt: undefined });
             }
-          })
+          }),
         );
 
         return resolve(categories);
@@ -155,7 +159,7 @@ export const updateOrAddStockCount = (docId: string, data: DocumentData) => {
   return them, if one or 2 of them don't exist, return undefined/empty
 */
 export interface GetStockListsByDateT {
-  [key: string]: DocumentData & { label: string, item_names:string[] };
+  [key: string]: DocumentData & { label: string; item_names: string[] };
 }
 export const getStockListsByDate = (date: string) => {
   return new Promise<GetStockListsByDateT>((resolve, reject) => {
@@ -168,7 +172,11 @@ export const getStockListsByDate = (date: string) => {
           const docId = doc.id;
           // console.log(doc.data());
           if (doc.data()[date]) {
-            docData[docId] = { ...doc.data()[date], label: replaceUnderscore(docId), item_names: doc.data().item_names };
+            docData[docId] = {
+              ...doc.data()[date],
+              label: replaceUnderscore(docId),
+              item_names: doc.data().item_names,
+            };
           }
         });
         // console.log({ docData });
