@@ -92,6 +92,7 @@ export const getAllCategories = () => {
 interface GetStockCountByCategoryT {
   yesterdayCount: DocumentData;
   itemNames: string[];
+  todayCount?: { [key: string]: DocumentData };
 }
 export const getStockCountByCategory = (category: string) => {
   return new Promise<GetStockCountByCategoryT>((resolve, reject) => {
@@ -100,6 +101,15 @@ export const getStockCountByCategory = (category: string) => {
       try {
         const docSnap = await getDoc(documentRef(category));
         if (docSnap.exists()) {
+          // if there is stock today return it
+          if (docSnap.data()[TODAY_DATE])
+            return resolve({
+              yesterdayCount: docSnap.data()[yesterdayDate],
+              itemNames: docSnap.data().item_names,
+              todayCount: docSnap.data()[TODAY_DATE],
+            });
+
+          // return the stock yesterday regardless
           return resolve({ yesterdayCount: docSnap.data()[yesterdayDate], itemNames: docSnap.data().item_names });
           // return resolve({ yesterdayCount: docSnap.data()['18-01-2024'], itemNames: docSnap.data().item_names });
         } else {
