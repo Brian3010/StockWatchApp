@@ -62,7 +62,7 @@ export default function StockList() {
       itemNames &&
       Object.keys(inputData).length === itemNames.length &&
       Object.values(inputData).every(value => value);
-    if (!isValid || !inputData) return alert("Some item's are empty");
+    if (!isValid || !inputData) return alert('Certain Items Not Counted Yet');
     console.log({ inputData });
 
     try {
@@ -89,23 +89,25 @@ export default function StockList() {
           <form action="" onSubmit={handleSubmit}>
             {itemNames!.map((item, index) => (
               <div key={index} className="border-b p-1 py-3">
-                <label className="font-semibold" htmlFor={excludeUnit(item)}>
-                  {replaceUnderscore(item)}
-                </label>
-                :
-                <input
-                  className="float-end rounded border"
-                  type="number"
-                  min="0"
-                  inputMode="numeric"
-                  pattern="[0-9]*"
-                  name={excludeUnit(item)}
-                  id={excludeUnit(item)}
-                  onChange={handleInputChange}
-                  placeholder="Count"
-                />
-                <p className="py-1 text-sm text-gray-800">
-                  yesterday's count: {stockCount ? `${stockCount[excludeUnit(item)]}` : 'Hom qua ko dem ha?'}
+                <div className="flex justify-between">
+                  <label className="font-semibold" htmlFor={excludeUnit(item)}>
+                    {replaceUnderscore(item)}:
+                  </label>
+
+                  <input
+                    className="float-end max-w-20 bg-transparent text-center  placeholder:text-center placeholder:font-bold"
+                    type="number"
+                    min="0"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    name={excludeUnit(item)}
+                    id={excludeUnit(item)}
+                    onChange={handleInputChange}
+                    placeholder="Count"
+                  />
+                </div>
+                <p className="py-1 text-sm font-medium text-gray-700">
+                  Yesterday's count: {stockCount ? `${stockCount[excludeUnit(item)]}` : 'ko có đâu, đếm lại đi'}
                 </p>
               </div>
             ))}

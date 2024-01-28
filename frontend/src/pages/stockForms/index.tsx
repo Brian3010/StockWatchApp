@@ -59,7 +59,7 @@ export default function StockForms() {
                 <span className="font-medium">{c.label}</span>
 
                 <span
-                  className={`inline-block w-fit rounded-full ${c.createdAt ? `bg-gami-primary` : `bg-gami-background`}  px-3 py-1 text-xs`}
+                  className={`inline-block w-fit rounded-xl ${c.createdAt ? ` bg-gami-background` : `bg-gami-primary`}  px-3  py-1 text-xs font-medium`}
                 >
                   {c.createdAt ? `Updated at ${c.createdAt}` : 'Not yet updated'}
                 </span>
