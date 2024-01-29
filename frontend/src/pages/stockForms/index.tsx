@@ -61,7 +61,7 @@ export default function StockForms() {
                 <span
                   className={`inline-block w-fit rounded-xl ${c.createdAt ? ` bg-gami-background` : `bg-gami-primary`}  px-3  py-1 text-xs font-medium`}
                 >
-                  {c.createdAt ? `Updated at ${c.createdAt}` : 'Not yet updated'}
+                  {c.createdAt ? `Updated on ${c.createdAt}` : 'Not yet updated today'}
                 </span>
 
                 <div className="pr-inherit absolute right-0 top-1/2 -translate-y-1/2 transform">

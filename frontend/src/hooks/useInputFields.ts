@@ -2,10 +2,10 @@ import { DocumentData } from 'firebase/firestore';
 import { useState } from 'react';
 
 const  useInputFields = () => {
-  const [inputData, setInputData] = useState<DocumentData>();
+  const [formInputs, setFormInputs] = useState<DocumentData>();
   //   console.log({ formData });
 
-  return { inputData, setInputData };
+  return { formInputs, setFormInputs };
 };
 
 export default  useInputFields;
