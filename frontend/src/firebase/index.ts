@@ -89,7 +89,7 @@ export const getAllCategories = () => {
 };
 
 // this function get the stock cound list by catogory
-interface GetStockCountByCategoryT {
+export interface GetStockCountByCategoryT {
   yesterdayCount: DocumentData;
   itemNames: string[];
   todayCount?: { [key: string]: DocumentData };
