@@ -1,6 +1,6 @@
 export default function NavBar() {
   return (
-    <nav className="relative flex w-full flex-wrap items-center justify-between bg-gami-primary">
+    <nav className="relative flex w-full flex-wrap items-center justify-between bg-gami-primary py-1">
       <div className="flex w-full flex-wrap items-center justify-center">
         <div>
           <a className="mx-2 my-1 flex items-center" href="/">
