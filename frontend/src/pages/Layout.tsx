@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 
 export default function Layout() {
   const location = useLocation();
@@ -13,8 +14,8 @@ export default function Layout() {
         >
           <Outlet />
         </main>
-        <footer className={`bg-[#E5E5E5] p-[2rem] ${location.pathname === '/' && 'absolute inset-x-0 bottom-0'}`}>
-          <div>Footer here</div>
+        <footer className={`bg-neutral-200 p-[1rem] ${location.pathname === '/' && 'absolute inset-x-0 bottom-0'}`}>
+          <Footer/>
         </footer>
       </div>
     </>
