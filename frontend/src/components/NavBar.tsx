@@ -5,13 +5,13 @@ export default function NavBar() {
         <div>
           <a className="mx-2 my-1 flex items-center" href="/">
             <div className="flex flex-col items-center">
-              <span className="font-medium text-lg text-gami-text ">StockWatch</span>
-              <span className="font-normal text-sm">
+              <span className="text-lg font-medium text-gami-text ">StockWatch</span>
+              <span className="text-sm font-normal">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 16 16"
                   fill="currentColor"
-                  className="w-4 h-4 float-left"
+                  className="float-left h-4 w-4"
                 >
                   <path
                     fillRule="evenodd"
