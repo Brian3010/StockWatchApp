@@ -7,15 +7,17 @@ export default function Layout() {
   console.log({ location });
   return (
     <>
-      <div className="container mx-auto max-w-screen-lg lg:max-w-screen-xs h-screen">
-        <div className="relative flex flex-col h-full bg-[#F9F9FB] lg:max-h-[960px] ">
+      <div className="mx-auto h-screen xl:h-[950px] xl:max-w-screen-xs">
+        <div className="relative flex flex-col bg-[#F9F9FB] xl:h-full">
           {location.pathname === '/' && <NavBar />}
-          <main className={`h-full px-3 pb-28 ${location.pathname === '/' ? ' rounded-t-3xl' : ''}`}>
+          <main className={`min-h-screen px-3 pb-20 xl:h-full ${location.pathname === '/' ? 'rounded-t-3xl' : ''}`}>
             <Outlet />
           </main>
-          <footer className={`bg-neutral-200 p-[1rem] ${location.pathname === '/' && 'absolute inset-x-0 bottom-0'}`}>
-            <Footer />
-          </footer>
+          {location.pathname === '/' && (
+            <footer className={`bg-neutral-200 p-[1rem] ${location.pathname === '/' && 'absolute inset-x-0 bottom-0'}`}>
+              <Footer />
+            </footer>
+          )}
         </div>
       </div>
     </>

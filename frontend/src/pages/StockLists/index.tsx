@@ -41,7 +41,7 @@ export default function StockList() {
         <BackButton className="mr-auto" to="/main-menu/stocks" />
         <p className="mr-auto text-lg font-bold ">{replaceUnderscore(category!)}</p>
       </div>
-      {isLoading ? <IsLoading /> : <div className="mt-8 border-t">{stockLists && <Forms stock={stockLists} />}</div>}
+      {isLoading ? <IsLoading /> : <div className="mt-8 border-t ">{stockLists && <Forms stock={stockLists} />}</div>}
     </>
   );
 }
