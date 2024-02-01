@@ -4,7 +4,7 @@ import { collectionRef, documentRef } from './config';
 
 //* Safari and chrome render the date differently, need to modify the options in toLocateDateString({month:'2-digit'}) to accommodate both browser
 export const TODAY_DATE = new Date(Date.now())
-  .toLocaleDateString('en-AU', { month: '2-digit', day: 'numeric', year: 'numeric', hour12: true })
+  .toLocaleDateString('en-AU', { month: '2-digit', day: '2-digit', year: 'numeric', hour12: true })
   .replace(/\//g, '-');
 
 // this function get yesterday time in server, return '19 January 2024 at 03:57:19 UTC+11'
@@ -12,7 +12,7 @@ export const getYesterdayServerTime = () => {
   const yesterdayDate = new Date(Date.now() - 86400000);
   const serverTime = Timestamp.fromDate(yesterdayDate)
     .toDate()
-    .toLocaleDateString('en-AU', { month: '2-digit', day: 'numeric', year: 'numeric' })
+    .toLocaleDateString('en-AU', { month: '2-digit', day: '2-digit', year: 'numeric' })
     .replace(/\//g, '-');
 
   // console.log({ serverTime });
