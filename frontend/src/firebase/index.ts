@@ -156,7 +156,7 @@ export const updateStockCount = async (docId: string, items: DocumentData) => {
 */
 
 export const updateOrAddStockCount = (docId: string, data: DocumentData) => {
-  return new Promise((resolve, reject) => {
+  return new Promise<string | Error>((resolve, reject) => {
     const dataToSubmit = formatToFirebaseData(data, TODAY_DATE);
 
     (async () => {

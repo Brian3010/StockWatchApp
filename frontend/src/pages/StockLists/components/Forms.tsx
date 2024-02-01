@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import IsLoading from '../../../components/IsLoading';
 import { GetStockCountByCategoryT, updateOrAddStockCount } from '../../../firebase';
+import useFlashMessage from '../../../hooks/useFlashMessage';
 import useFormInputs from '../../../hooks/useInputFields';
 import { excludeUnit, replaceUnderscore, validateStockFormInputs } from '../../../utils/helpers';
 
@@ -13,6 +14,7 @@ export default function Forms({ stock }: FormsProps) {
   const { category } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const { setFlashMessage } = useFlashMessage();
 
   // const [inputLength, setInputLength] = useState<number>();
 
@@ -49,22 +51,18 @@ export default function Forms({ stock }: FormsProps) {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     // console.log({ formInputs });
-
-    console.log(validateStockFormInputs(formInputs, stock.itemNames));
     if (!validateStockFormInputs(formInputs, stock.itemNames)) return alert('Certain items not counted yet');
-
     // console.log({ formInputs });
     try {
       setIsLoading(true);
       const res = await updateOrAddStockCount(category!, formInputs!);
-      console.log(res);
-      //TODO: onSuccess: redirect to homepage and display flash message
-
+      // console.log(res);
       setIsLoading(false);
+      setFlashMessage({ message: res.toString(), type: 'success' });
       return navigate('..', { relative: 'path' });
     } catch (error) {
       console.error(error);
-      //TODO: onError: redirect to homepage  display error as flash message
+      setFlashMessage({ message: 'Error! Fail to submit the stock', type: 'error' });
     }
   };
 

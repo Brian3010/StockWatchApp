@@ -4,6 +4,7 @@ import { replaceUnderscore } from '../../utils/helpers';
 
 import { Link } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
+import FlashMessage from '../../components/FlashMessage';
 import IsLoading from '../../components/IsLoading';
 
 export default function StockForms() {
@@ -23,7 +24,7 @@ export default function StockForms() {
             label: c.category.charAt(0).toUpperCase() + replaceUnderscore(c.category.slice(1)),
             createdAt: c.createdAt,
           }));
-          console.log({ prev });
+          // console.log({ prev });
           return prev;
         });
 
@@ -83,6 +84,7 @@ export default function StockForms() {
           </div>
         </>
       )}
+      <FlashMessage />
     </>
   );
 }
