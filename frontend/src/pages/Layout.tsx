@@ -4,7 +4,7 @@ import NavBar from '../components/NavBar';
 
 export default function Layout() {
   const location = useLocation();
-  console.log({ location });
+  // console.log({ location });
   return (
     <>
       <div className="mx-auto h-screen xl:h-[950px] xl:max-w-screen-xs">

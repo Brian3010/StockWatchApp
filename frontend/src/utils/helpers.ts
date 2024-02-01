@@ -15,3 +15,27 @@ export const convertDocDataToArray = (data: DocumentData, keysArr: string[]) => 
 };
 
 export const isObjectEmpty = (obj: object) => Object.keys(obj).length === 0;
+
+/* make sure the values are all string in order for the function to work correctly.
+      - check formInputs undefined
+      - check all inputs has been filled by comparing the length of itemNames and formInputs keys
+      - check if all inputs has been filled but some of them are empty values,
+*/
+export const validateStockFormInputs = (formInput: DocumentData | undefined, itemNames: string[]): boolean => {
+  if (!formInput) {
+    console.log('formInput false');
+    return false;
+  }
+
+  if (Object.keys(formInput).length !== itemNames.length) {
+    console.log('checkLength false');
+    return false;
+  }
+
+  if (!Object.values(formInput).every(value => value)) {
+    console.log('checkLength false');
+    return false;
+  }
+
+  return true;
+};
