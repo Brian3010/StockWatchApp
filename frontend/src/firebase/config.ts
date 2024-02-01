@@ -3,7 +3,7 @@ import { collection, doc, getFirestore } from 'firebase/firestore';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig: FirebaseOptions = {
-  apiKey: 'AIzaSyAeoNl9i1vfLZUgMLe--YYdFWEtLI5ZW5A',
+  apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
   authDomain: 'stockwatch-c700e.firebaseapp.com',
   databaseURL: 'https://stockwatch-c700e-default-rtdb.asia-southeast1.firebasedatabase.app',
   projectId: 'stockwatch-c700e',
