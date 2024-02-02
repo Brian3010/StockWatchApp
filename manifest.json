@@ -12,6 +12,11 @@
       "src": "./src/assets/gami-logo.jpg",
       "sizes": "192x192",
       "type": "image/jpg"
+    },
+    {
+      "src": "gami-logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpg"
     }
   ]
 }
