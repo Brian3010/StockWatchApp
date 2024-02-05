@@ -34,6 +34,10 @@ export default function StockForms() {
         console.error(error);
       }
     })();
+
+    return () => {
+      setCategories([]);
+    };
   }, []);
   // categories && categories.length > 0 && console.log(categories);
   console.log({ categories });
