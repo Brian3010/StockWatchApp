@@ -36,7 +36,7 @@ export default function StockHistory() {
 
       {/** content */}
       <div className="mt-8 px-1 sm:px-0">
-        <div className="mb-3">
+        <div className="mb-3 ">
           <label htmlFor="stock-history-date">Select date: </label>
           <input
             className="border border-black hover:bg-gray-100"
@@ -50,7 +50,7 @@ export default function StockHistory() {
         {isLoading ? (
           <IsLoading />
         ) : (
-          <div className="mt-10">
+          <div className="mt-7">
             {!stockLists && <div className="text-center">Please select a date to view the stock</div>}
             {stockLists && isObjectEmpty(stockLists) && (
               <div className="text-center">Stock not submited on this day</div>
