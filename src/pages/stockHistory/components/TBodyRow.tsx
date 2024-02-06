@@ -1,5 +1,5 @@
 import { DocumentData } from 'firebase/firestore';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { excludeUnit, replaceUnderscore } from '../../../utils/helpers';
 
 interface TBodyRowProps {
