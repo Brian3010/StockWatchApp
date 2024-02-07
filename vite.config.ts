@@ -15,7 +15,7 @@ export default ({ mode }) => {
 
   return defineConfig({
     plugins: [react()],
-    esbuild: process.env.PROD && {
+    esbuild: !!process.env.PROD && {
       drop: ['console', 'debugger'],
     },
   });
