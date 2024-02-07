@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function NavBar() {
   const [isSpining, setIsSpining] = useState(false);
-  
+  const navigate = useNavigate();
+
   return (
     <nav className="relative flex w-full flex-wrap items-center justify-between bg-gami-primary py-1">
       <div className="relative flex w-full flex-wrap items-center justify-center">
@@ -26,10 +28,12 @@ export default function NavBar() {
                 Gami Hawthorn
               </span>
               <div className="absolute right-3 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-                <button onClick={() => {
-                  window.location.reload()
-                  setIsSpining(!isSpining);
-                }}>
+                <button
+                  onClick={() => {
+                    setIsSpining(!isSpining);
+                    return navigate(0);
+                  }}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
