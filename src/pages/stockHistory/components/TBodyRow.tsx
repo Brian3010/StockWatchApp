@@ -58,13 +58,20 @@ export default function TBodyRow({ stock, itemNames, lowStockChecked }: TBodyRow
     ? stockInOrder.map(([item, value], index) => (
         <tr className="border-blue-gray-200 border-b" key={index}>
           <td className="px-4 py-3">{item}</td>
-          <td className="px-4 py-3">{value}</td>
+          <td className="flex justify-between px-4 py-3 font-semibold">
+            {value} {value < 1 && <span className="me-3 flex h-2 w-2 self-center rounded-full bg-yellow-400"></span>}
+          </td>
         </tr>
       ))
     : itemNames.map((item, index) => (
         <tr className="border-blue-gray-200 border-b" key={index}>
           <td className="px-4 py-3">{replaceUnderscore(item)}</td>
-          <td className="px-4 py-3">{stock[excludeUnit(item)]}</td>
+          <td className="flex justify-between px-4 py-3 font-semibold">
+            {stock[excludeUnit(item)]}
+            {stock[excludeUnit(item)] < 2 && (
+              <span className="me-3 flex h-2 w-2 self-center rounded-full bg-yellow-400"></span>
+            )}
+          </td>
         </tr>
       ));
 }

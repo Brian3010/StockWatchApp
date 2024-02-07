@@ -15,20 +15,22 @@ export default function StockTabs({ stockLists }: StockTabsProps) {
   return (
     <>
       <div className="pb-3 text-right">
+        <label htmlFor="stock-sorted-checkbox" className="me-2 inline-flex">
+          <span className="me-1 h-3 w-3 self-center rounded-full bg-yellow-400"></span> <span>Low Stock</span>
+        </label>
         <input
           type="checkbox"
-          className="mr-2 mt-0.5 shrink-0 rounded border-gray-200 text-blue-600 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+          className="mr-2 shrink-0 rounded border-gray-200 text-blue-600 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
           id="stock-sorted-checkbox"
           onChange={() => setLowStockChecked(!lowStockChecked)}
           checked={lowStockChecked}
         />
-        <label htmlFor="stock-sorted-checkbox">Low Stock</label>
       </div>
       <Tab.Group>
         <div className="mb-1 overflow-hidden border-y border-gray-200">
           <Tab.List
             ref={scrollRef}
-            className="scrollbar-hide -mb-px flex w-screen flex-nowrap gap-1 overflow-x-auto font-medium"
+            className="scrollbar-hide -mb-px flex w-screen flex-nowrap gap-1 overflow-x-auto font-semibold"
           >
             {Object.keys(stockLists).map((stock, index) => (
               <Tab key={index} as={Fragment}>
