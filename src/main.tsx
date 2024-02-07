@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.tsx';
 import { FlashMessageProvider } from './context/FlashMessageProvider.tsx';
 import './index.css';
+import ClosingTasks from './pages/ClosingTasks/index.tsx';
 import ErrorPage from './pages/error-page.tsx';
 import Layout from './pages/Layout.tsx';
 import MainMenu from './pages/mainMenu/index.tsx';
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: '/main-menu/stock-history',
         element: <StockHistory />,
+      },
+      {
+        path: '/main-menu/boh-closing-tasks',
+        element: <ClosingTasks />,
       },
     ],
   },
