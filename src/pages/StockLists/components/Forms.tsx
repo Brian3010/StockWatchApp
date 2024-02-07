@@ -85,7 +85,7 @@ export default function Forms({ stock }: FormsProps) {
                   </label>
 
                   <input
-                    className="float-end max-w-20 bg-transparent text-center  placeholder:text-center placeholder:font-bold"
+                    className="float-end max-w-20 bg-transparent text-center font-bold placeholder:text-center placeholder:font-bold"
                     type="number"
                     min="0"
                     inputMode="decimal"
