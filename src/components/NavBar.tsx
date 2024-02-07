@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 export default function NavBar() {
+  const [isSpining, setIsSpining] = useState(false);
+  
   return (
     <nav className="relative flex w-full flex-wrap items-center justify-between bg-gami-primary py-1">
       <div className="relative flex w-full flex-wrap items-center justify-center">
@@ -22,14 +26,17 @@ export default function NavBar() {
                 Gami Hawthorn
               </span>
               <div className="absolute right-3 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-                <button onClick={() => window.location.reload()}>
+                <button onClick={() => {
+                  window.location.reload()
+                  setIsSpining(!isSpining);
+                }}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     stroke="currentColor"
-                    className="h-7 w-7 text-gami-text hover:animate-spin"
+                    className={`h-7 w-7 text-gami-text ${isSpining && 'animate-spin'}`}
                   >
                     <path
                       strokeLinecap="round"
