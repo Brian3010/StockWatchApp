@@ -1,6 +1,7 @@
 import { DocumentData, Timestamp, getDoc, getDocs, updateDoc } from 'firebase/firestore';
+import { uploadBytes } from 'firebase/storage';
 import { replaceUnderscore } from '../utils/helpers';
-import { collectionRef, documentRef, taskImagesRef } from './config';
+import { collectionRef, documentRef, taskImagesRef, taskImgStorageByDateRef } from './config';
 
 //* Safari and chrome render the date differently, need to modify the options in toLocateDateString({month:'2-digit'}) to accommodate both browser
 export const TODAY_DATE = new Date(Date.now())
@@ -223,6 +224,24 @@ export const getBOHTasks = () => {
           return doc.data()['tasksList'];
         });
         return resolve(BOHTasks[0]);
+      } catch (error) {
+        return reject(error);
+      }
+    })();
+  });
+};
+
+export const uploadTaskImages = (pictures: { id: string; picBlob: string; picFile: File }[]) => {
+  return new Promise<string>((resolve, reject) => {
+    (async () => {
+      try {
+        await Promise.all(
+          pictures.map(async pic => {
+            await uploadBytes(taskImgStorageByDateRef(TODAY_DATE, pic.id), pic.picFile);
+          }),
+        );
+
+        return resolve('Successfully uploaded');
       } catch (error) {
         return reject(error);
       }
