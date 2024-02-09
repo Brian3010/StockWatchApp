@@ -16,27 +16,32 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
-    errorElement: <ErrorPage />,
+
     children: [
       {
-        index: true,
-        element: <App />,
-      },
-      {
-        path: '/main-menu/stocks',
-        element: <MainMenu />,
-      },
-      {
-        path: '/main-menu/stocks/:category',
-        element: <StockList />,
-      },
-      {
-        path: '/main-menu/stock-history',
-        element: <StockHistory />,
-      },
-      {
-        path: '/main-menu/boh-closing-tasks',
-        element: <ClosingTasks />,
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            index: true,
+            element: <App />,
+          },
+          {
+            path: '/main-menu/stocks',
+            element: <MainMenu />,
+          },
+          {
+            path: '/main-menu/stocks/:category',
+            element: <StockList />,
+          },
+          {
+            path: '/main-menu/stock-history',
+            element: <StockHistory />,
+          },
+          {
+            path: '/main-menu/boh-closing-tasks',
+            element: <ClosingTasks />,
+          },
+        ],
       },
     ],
   },
