@@ -20,10 +20,13 @@ const firebaseApp = initializeApp(firebaseConfig);
 export const db = getFirestore(firebaseApp);
 // StockLists converter
 
-// collection ref
+// collection ref - StockLists
 export const collectionRef = collection(db, 'StockLists'); // provide types for return response
 
 export const documentRef = (docId: string) => doc(db, 'StockLists', docId);
+
+// BOHTaskImages Ref
+export const taskImagesRef = collection(db, 'BOHTaskImages');
 
 // typescript with firebase: https://medium.com/javascript-in-plain-english/using-firestore-with-typescript-in-the-v9-sdk-cf36851bb099
 

@@ -1,6 +1,6 @@
 import { DocumentData, Timestamp, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import { replaceUnderscore } from '../utils/helpers';
-import { collectionRef, documentRef } from './config';
+import { collectionRef, documentRef, taskImagesRef } from './config';
 
 //* Safari and chrome render the date differently, need to modify the options in toLocateDateString({month:'2-digit'}) to accommodate both browser
 export const TODAY_DATE = new Date(Date.now())
@@ -206,81 +206,27 @@ export const getStockListsByDate = (date: string) => {
   });
 };
 
-/* // get collection data
-export interface StockListsData {
-  data: DocumentData[];
-  options: string[];
+/**----------------------------------------------------------------------*/
+/**
+ * Calling BOHTaskImages APIs
+ * */
+
+export interface TgetBOHTasks {
+  taskLists: string[];
 }
-export const getStockListsV1 = () => {
-  return new Promise<StockListsData>((resolve, reject) => {
+export const getBOHTasks = () => {
+  return new Promise<string[]>((resolve, reject) => {
     (async () => {
       try {
-        const stockSnapShot = await getDocs(collectionRef);
-
-        const docOptions: string[] = [];
-        const snapShot = stockSnapShot.docs.map(doc => {
-          docOptions.push(doc.id);
-          return doc.data();
+        const snapShot = await getDocs(taskImagesRef);
+        const BOHTasks = snapShot.docs.map(doc => {
+          return doc.data()['tasksList'];
         });
-        // console.log(snapShot[0]); // [{chicken_inventory},{sauce_chicken}];
 
-        // const convertedData = convertFirebaseData(snapShot);
-
-        return resolve({ data: snapShot, options: docOptions });
+        return resolve(BOHTasks);
       } catch (error) {
         return reject(error);
       }
     })();
   });
 };
-
-export const ChickenInventoryFields = ['whole_chicken', 'boneless_chicken', 'chicken_wings'];
-export const SauceInventoryFields = ['chicken_powder'];
-
-// this function gets the stockLists from database
-export interface GetStockListsResponse {
-  itemNames: string[][];
-  yesterdayStock: DocumentData[];
-  options: string[];
-}
-
-export const getStockListsV2 = () => {
-  return new Promise<GetStockListsResponse>((resolve, reject) => {
-    (async () => {
-      try {
-        const stockSnapShot = await getDocs(collectionRef);
-
-        const options: string[] = [];
-        const itemNames: string[][] = [];
-        const yesterdayStock: DocumentData[] = [];
-        const yesterdayDate = getYesterdayServerTime();
-        console.log({ yesterdayDate });
-
-        stockSnapShot.docs.map(doc => {
-          console.log(doc.data());
-          options.push(doc.id);
-          itemNames.push(doc.data()['item_names']);
-          yesterdayStock.push(doc.data()[yesterdayDate]); // if the date not found, undefined will be assigned
-
-          // return doc.data();
-        });
-
-        return resolve({ itemNames, options, yesterdayStock });
-      } catch (error) {
-        return reject(error);
-      }
-    })();
-  });
-};
-// this function format the serverTimeStamp to DD-MM-YY
-export const formatServerTimeStamp = (time: Timestamp) => {
-  const serverTime = time.toDate();
-  const formattedDate = `${('0' + serverTime.getDate()).slice(-2)}-${('0' + (serverTime.getMonth() + 1)).slice(
-    -2
-  )}-${serverTime.getFullYear()}`;
-
-  console.log({ formattedDate });
-  return formattedDate; // DD-MM-YY;
-};
-
-*/
