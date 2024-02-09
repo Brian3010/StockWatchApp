@@ -16,7 +16,7 @@ export default function TaskImageItem({ task, onChange }: TaskImageItemProps) {
   return (
     <label
       htmlFor={task}
-      className="flex  min-h-[210px] cursor-pointer items-center justify-evenly rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100"
+      className="flex min-h-[210px] cursor-pointer items-center justify-evenly rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100"
     >
       {picture && (
         <div className="h-[85%] w-[120px] bg-blue-400 ">
