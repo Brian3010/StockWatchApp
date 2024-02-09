@@ -1,55 +1,57 @@
 import { ChangeEventHandler, useState } from 'react';
-import UploadIcon from '../../../components/UploadIcon';
+import { Link } from 'react-router-dom';
+import TaskImageItem from './TaskImageItem';
 
 interface TaskImagesUploadProps {
   tasksList: string[];
 }
-
+//{id:['Fryer 1', 'Fryer 2','Fryer 3'], }
 export default function TaskImagesUpload({ tasksList }: TaskImagesUploadProps) {
-  const [pictures, setPictures] = useState<{ id: string; taskPics: File; displayPics: string }[]>([]);
-  // const [picsDisplay, setPicsDisplay]
+  const [pictures, setPictures] = useState<{ id: string; picBlob: string }[]>([]);
+
+  // console.log({ pictures });
   console.log({ pictures });
   const handleOnChange: ChangeEventHandler<HTMLInputElement> = event => {
-    if (!event.target.files) return;
-    //TODO: find a way to check if pic already exists in the state, then return
-    //TODO: once done, display preview image on the side, and allow to delete preview
-    const newPic = {
-      id: event.target.name,
-      taskPics: event.target.files[0],
-      displayPics: URL.createObjectURL(event.target.files[0]),
-    };
-    if (pictures.includes(newPic)) return;
+    // console.log(event.target.files);
+    if (!event.target.files || event.target.files.length === 0) return;
+    const { name } = event.target;
 
-    setPictures([...pictures, newPic]);
+    const blob = URL.createObjectURL(event.target.files[0]);
+    const newPic = { id: name, picBlob: blob };
+
+    // setPictures(prev => [...prev, newPic]);
+    setPictures(prev => {
+      // remove pic if exist in the array
+      // if not keep as is
+      const filteredPic = prev.filter(pic => {
+        return pic.id !== newPic.id;
+      });
+      return [...filteredPic, newPic];
+    });
   };
+
+  const handleSubmit = () => {
+    
+  }
+
   return (
     <div className="xl:scrollbar-hide xl:h-[670px] xl:overflow-scroll">
       <div className="mx-auto grid grid-cols-1 gap-2 border-b p-1 py-3 md:grid-cols-2">
         {tasksList.map((task, index) => (
-          <label
-            key={index}
-            htmlFor="picture"
-            className="flex  min-h-[200px] cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100"
-          >
-            <div className="flex flex-col items-center justify-center pb-6 pt-5">
-              <UploadIcon />
-              <p className="">
-                <span className="font-semibold">{task}</span>
-              </p>
-              <p className="text-xs text-gray-500 ">Upload Here</p>
-            </div>
-
-            <input
-              className="hidden"
-              type="file"
-              id="picture"
-              name={task}
-              accept="image/*"
-              capture="environment"
-              onChange={handleOnChange}
-            />
-          </label>
+          <TaskImageItem key={index} onChange={handleOnChange} task={task} />
         ))}
+      </div>
+      <div className="mt-16 flex justify-around">
+        <Link to=".." className="rounded px-4  py-2 font-semibold underline hover:bg-gray-200">
+          Cancel
+        </Link>
+        <button
+          className="rounded  bg-gami-primary px-4 py-2 font-bold text-gami-text hover:brightness-90"
+          type="submit"
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
       </div>
     </div>
   );

@@ -222,8 +222,7 @@ export const getBOHTasks = () => {
         const BOHTasks = snapShot.docs.map(doc => {
           return doc.data()['tasksList'];
         });
-
-        return resolve(BOHTasks);
+        return resolve(BOHTasks[0]);
       } catch (error) {
         return reject(error);
       }
