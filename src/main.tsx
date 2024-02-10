@@ -10,6 +10,7 @@ import Layout from './pages/Layout.tsx';
 import MainMenu from './pages/mainMenu/index.tsx';
 import StockHistory from './pages/stockHistory/index.tsx';
 import StockList from './pages/StockLists/index.tsx';
+import ClosingMenu from './pages/closingMenu/index.tsx';
 // import Root from './pages/root';
 
 const router = createBrowserRouter([
@@ -38,9 +39,13 @@ const router = createBrowserRouter([
             element: <StockHistory />,
           },
           {
-            path: '/main-menu/boh-closing-tasks',
-            element: <ClosingTasks />,
+            path: '/main-menu/boh-closing-tasks-menu',
+            element:<ClosingMenu/>
           },
+          {
+            path:'/main-menu/boh-closing-tasks-menu/closing-tasks',
+            element: <ClosingTasks />,
+          }
         ],
       },
     ],

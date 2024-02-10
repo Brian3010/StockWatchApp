@@ -231,7 +231,9 @@ export const getBOHTasks = () => {
   });
 };
 
-export const uploadTaskImages = (pictures: { id: string; picBlob: string; picFile: File }[]) => {
+export type PicturesT = { id: string; picBlob: string; picFile: File }[];
+
+export const uploadTaskImages = (pictures: PicturesT) => {
   return new Promise<string>((resolve, reject) => {
     (async () => {
       try {
