@@ -4,7 +4,7 @@ function App() {
     <>
       <div className="flex flex-col justify-center gap-3 pt-10">
         {/** list of items */}
-        <Link className="custom-list-item font-semibold" to="/main-menu/stocks">
+        <Link className="custom-list-item font-semibold" to="/stocks">
           <div className="flex items-center">
             <div className="p-3">
               <svg
@@ -26,7 +26,7 @@ function App() {
           </div>
         </Link>
 
-        <Link className="custom-list-item font-semibold" to="/main-menu/stock-history">
+        <Link className="custom-list-item font-semibold" to="/stock-history">
           <div className="flex items-center">
             <div className="p-3">
               <svg
@@ -48,7 +48,7 @@ function App() {
           </div>
         </Link>
 
-        <Link className="custom-list-item font-semibold" to="/main-menu/boh-closing-tasks-menu">
+        <Link className="custom-list-item font-semibold" to="/boh-closing-tasks-menu">
           <div className="flex items-center">
             <div className="p-3">
               <svg
