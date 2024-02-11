@@ -7,7 +7,7 @@ import BackButton from '../../components/BackButton';
 import FlashMessage from '../../components/FlashMessage';
 import IsLoading from '../../components/IsLoading';
 
-export default function StockForms() {
+export default function StockMenu() {
   const [categories, setCategories] = useState<{ value: string; label: string; createdAt: string | undefined }[]>();
   const [isLoading, setIsLoading] = useState(false);
   //* prolly use useContext or localStorage for persistent display num of item
@@ -55,14 +55,10 @@ export default function StockForms() {
       ) : (
         <>
           <h1 className="pb-3 pt-8 text-xl font-bold">Select a count list:</h1>
-          <div className=" rounded-md border">
+          <div className="rounded-md border">
             {categories &&
               categories.map((c, index) => (
-                <Link
-                  key={index}
-                  className="relative flex flex-col gap-1 border-b p-5"
-                  to={`/main-menu/stocks/${c.value}`}
-                >
+                <Link key={index} className="relative flex flex-col gap-1 border-b p-5" to={`/stocks/${c.value}`}>
                   <span className="font-medium">{c.label}</span>
 
                   <span

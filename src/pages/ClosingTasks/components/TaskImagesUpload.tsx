@@ -1,7 +1,7 @@
 import { ChangeEventHandler, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import IsLoading from '../../../components/IsLoading';
-import { uploadTaskImages } from '../../../firebase';
+import { PicturesT, uploadTaskImages } from '../../../firebase';
 import useFlashMessage from '../../../hooks/useFlashMessage';
 import TaskImageItem from './TaskImageItem';
 
@@ -9,8 +9,15 @@ interface TaskImagesUploadProps {
   tasksList: string[];
 }
 //{id:['Fryer 1', 'Fryer 2','Fryer 3'], }
+
+const isValidInput = (inputs: PicturesT, tasksList: string[]) => {
+  const inputIds = inputs.map(input => input.id);
+
+  return inputIds.length === tasksList.length;
+};
+
 export default function TaskImagesUpload({ tasksList }: TaskImagesUploadProps) {
-  const [pictures, setPictures] = useState<{ id: string; picBlob: string; picFile: File }[]>([]);
+  const [pictures, setPictures] = useState<PicturesT>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { setFlashMessage } = useFlashMessage();
   const navigate = useNavigate();
@@ -37,6 +44,7 @@ export default function TaskImagesUpload({ tasksList }: TaskImagesUploadProps) {
 
   const handleSubmit = async () => {
     console.log({ pictures });
+    if (!isValidInput(pictures, tasksList)) return alert('Please complete all the tasks assigned');
 
     try {
       setIsLoading(true);
