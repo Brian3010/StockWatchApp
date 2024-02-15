@@ -3,11 +3,6 @@ import { uploadBytes } from 'firebase/storage';
 import { replaceUnderscore } from '../utils/helpers';
 import { collectionRef, documentRef, taskImagesRef, taskImgStorageByDateRef } from './config';
 
-//* Safari and chrome render the date differently, need to modify the options in toLocateDateString({month:'2-digit'}) to accommodate both browser
-export const TODAY_DATE = new Date(Date.now())
-  .toLocaleDateString('en-AU', { month: '2-digit', day: '2-digit', year: 'numeric', hour12: true })
-  .replace(/\//g, '-');
-
 // this function get yesterday time in server, return '19 January 2024 at 03:57:19 UTC+11'
 export const getYesterdayServerTime = () => {
   const yesterdayDate = new Date(Date.now() - 86400000);
@@ -20,6 +15,13 @@ export const getYesterdayServerTime = () => {
 
   return serverTime;
 };
+
+//* Safari and chrome render the date differently, need to modify the options in toLocateDateString({month:'2-digit'}) to accommodate both browser
+export const TODAY_DATE = new Date(Date.now())
+  .toLocaleDateString('en-AU', { month: '2-digit', day: '2-digit', year: 'numeric', hour12: true })
+  .replace(/\//g, '-');
+
+export const YESTERDAY_DATE = getYesterdayServerTime();
 
 // {key:number,...} to {todayDate: {key:number,...}}
 export const formatToFirebaseData = (data: Record<string, string>, todayDate: string): DocumentData => {
@@ -248,5 +250,11 @@ export const uploadTaskImages = (pictures: PicturesT) => {
         return reject(error);
       }
     })();
+  });
+};
+
+export const getTaskImagesByDate = (date: string) => {
+  return new Promise((resolve, reject) => {
+    (async () => {})();
   });
 };

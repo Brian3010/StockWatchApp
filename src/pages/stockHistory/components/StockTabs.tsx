@@ -27,7 +27,7 @@ export default function StockTabs({ stockLists }: StockTabsProps) {
         />
       </div>
       <Tab.Group>
-        <div className="mb-1 overflow-hidden border-y border-gray-200">
+        <div className="mb-1 overflow-hidden border-y border-gray-200 ">
           <Tab.List
             ref={scrollRef}
             className="scrollbar-hide -mb-px flex w-screen flex-nowrap gap-1 overflow-x-auto font-semibold"
@@ -62,7 +62,7 @@ export default function StockTabs({ stockLists }: StockTabsProps) {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="text-blue-gray-900">
+                <tbody className="text-blue-gray-900 ">
                   <TBodyRow
                     key={index}
                     itemNames={stockLists[stock].item_names}
