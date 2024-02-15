@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
 
@@ -13,15 +12,6 @@ const images = [
 export default function SubmitedTasksHistory() {
   const { DATE } = useParams();
   console.log({ DATE });
-
-  const [height, setHeight] = useState(0);
-  const ref = useRef<HTMLImageElement>(null);
-
-  useEffect(() => {
-    if (ref.current) {
-      setHeight((ref.current.clientWidth * 16) / 9);
-    }
-  }, [ref]);
 
   return (
     <>
@@ -47,8 +37,8 @@ export default function SubmitedTasksHistory() {
             {images.map((img, index) => (
               <tr key={index} className="border-blue-gray-200 border">
                 <td className="min-w-24 border p-1 font-medium">Fryer 1 completely off</td>
-                <td className="p-1" style={{ height: `${height}px` }}>
-                  <img src={img} alt="image task" className="h-full w-full object-cover" ref={ref} />
+                <td className="p-1 ">
+                  <img src={img} alt="image task" className="aspect-[9/16] h-full w-full object-fill" />
                 </td>
               </tr>
             ))}
