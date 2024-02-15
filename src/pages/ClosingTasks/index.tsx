@@ -39,6 +39,5 @@ export default function ClosingTasks() {
         </div>
       )}
     </>
-    //TODO: Watch this: https://www.youtube.com/watch?v=YOAeBSCkArA&ab_channel=PedroTech
   );
 }

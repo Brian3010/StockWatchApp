@@ -18,7 +18,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
-
+    errorElement: <ErrorPage />,
     children: [
       {
         errorElement: <ErrorPage />,
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
             element: <ClosingTasks />,
           },
           {
-            path: '/boh-closing-tasks-menu/submited-tasks-history',
+            path: '/boh-closing-tasks-menu/submited-tasks-history/:DATE',
             element: <SubmitedTasksHistory />,
           },
         ],
