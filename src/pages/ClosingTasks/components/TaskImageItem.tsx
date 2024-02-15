@@ -39,6 +39,7 @@ export default function TaskImageItem({ task, onChange }: TaskImageItemProps) {
         accept="image/*"
         capture="environment"
         onChange={handleOnChange}
+        required
       />
     </label>
   );

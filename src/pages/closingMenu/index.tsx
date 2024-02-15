@@ -6,48 +6,35 @@ export default function ClosingMenu() {
     <>
       <div className="flex border-b p-4">
         <BackButton className="mr-auto" to="../" />
-        <p className="mr-auto font-medium">BOH Closing tasks</p>
+        <p className="mr-auto font-medium">Closing Tasks</p>
       </div>
 
-      <div className="mt-10 rounded-md border">
-        <Link className="relative flex flex-col gap-1 border-b p-5" to={`/boh-closing-tasks-menu/closing-tasks`}>
-          <span className="font-medium">Closing Tasks</span>
+      <div className="flex flex-col gap-2">
+        <div className="mt-10 rounded-md  border shadow-sm">
+          <Link className="relative flex flex-col gap-1  p-5" to={`/boh-closing-tasks-menu/closing-tasks`}>
+            <span className="font-medium">BOH Tasks</span>
 
-          <span className={`inline-block w-fit rounded-xl bg-gami-primary px-3  py-1 text-xs font-medium`}>
-            Not yet updated today
-          </span>
-          <div className="pr-inherit absolute right-0 top-1/2 -translate-y-1/2 transform">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className=" h-6 w-6 text-gami-link"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-            </svg>
-          </div>
-        </Link>
-        <Link className="relative flex flex-col gap-1 border-b p-5" to={`/boh-closing-tasks-menu/submited-tasks`}>
-          <span className="font-medium">Submited tasks</span>
-
-          <span className={`inline-block w-fit rounded-xl bg-gami-primary px-3  py-1 text-xs font-medium`}>
-            Not yet updated today
-          </span>
-          <div className="pr-inherit absolute right-0 top-1/2 -translate-y-1/2 transform">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className=" h-6 w-6 text-gami-link"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-            </svg>
-          </div>
-        </Link>
+            <div className="pr-inherit absolute right-0 top-1/2 -translate-y-1/2 transform ">
+              <span className={`inline-block w-fit rounded-xl px-3  py-1 text-xs font-semibold text-gray-700`}>
+                Not submited today
+              </span>
+            </div>
+          </Link>
+        </div>
+        <div className="flex gap-2">
+          <Link
+            className="inline-block rounded-xl bg-orange-300 p-2 shadow-sm"
+            to={`/boh-closing-tasks-menu/submited-tasks-history`}
+          >
+            <span className="text-sm font-semibold">Yesterday Uploads</span>
+          </Link>
+          <Link
+            className="inline-block rounded-xl bg-amber-300 p-2 shadow-sm "
+            to={`/boh-closing-tasks-menu/submited-tasks-history`}
+          >
+            <span className="text-sm font-semibold ">Today Uploads</span>
+          </Link>
+        </div>
       </div>
     </>
   );
