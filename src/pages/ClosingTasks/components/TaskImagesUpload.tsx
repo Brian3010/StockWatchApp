@@ -68,7 +68,7 @@ export default function TaskImagesUpload({ tasksList }: TaskImagesUploadProps) {
         ))}
       </div>
       <div className="mt-16 flex justify-around">
-        <Link to=".." className="rounded px-4  py-2 font-semibold underline hover:bg-gray-200">
+        <Link to=".." relative="path" className="rounded px-4  py-2 font-semibold underline hover:bg-gray-200">
           Cancel
         </Link>
         <button

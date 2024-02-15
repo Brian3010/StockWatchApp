@@ -24,7 +24,7 @@ export default function ClosingTasks() {
   return (
     <>
       <div className="flex border-b p-4">
-        <BackButton className="mr-auto" to="../"/>
+        <BackButton className="mr-auto" to="/boh-closing-tasks-menu" />
         <p className="mr-auto font-medium">BOH Closing tasks</p>
       </div>
       {isLoading ? (

@@ -66,7 +66,7 @@ function App() {
                 />
               </svg>
             </div>
-            <span>BOH Closing Tasks (In Progress)</span>
+            <span>Closing Tasks (In Progress)</span>
           </div>
         </Link>
 

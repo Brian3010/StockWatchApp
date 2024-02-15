@@ -11,6 +11,7 @@ import Layout from './pages/Layout.tsx';
 import StockHistory from './pages/stockHistory/index.tsx';
 import StockList from './pages/StockLists/index.tsx';
 import StockMenu from './pages/stockMenu';
+import SubmitedTasksHistory from './pages/submitedTasksHistory/index.tsx';
 // import Root from './pages/root';
 
 const router = createBrowserRouter([
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
           {
             path: '/boh-closing-tasks-menu/closing-tasks',
             element: <ClosingTasks />,
+          },
+          {
+            path: '/boh-closing-tasks-menu/submited-tasks-history',
+            element: <SubmitedTasksHistory />,
           },
         ],
       },

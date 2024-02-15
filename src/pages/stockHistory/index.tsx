@@ -37,9 +37,9 @@ export default function StockHistory() {
       {/** content */}
       <div className="mt-8 px-1 sm:px-0">
         <div className="mb-3 ">
-          <label htmlFor="stock-history-date">Select date: </label>
+          <label htmlFor="stock-history-date">Select a date: </label>
           <input
-            className="border border-black hover:bg-gray-100"
+            className="rounded-md border border-black hover:bg-gray-100"
             type="date"
             id="stock-history-date"
             onChange={handleDateChange}
