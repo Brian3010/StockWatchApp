@@ -50,7 +50,7 @@ export default function StockHistory() {
         {isLoading ? (
           <IsLoading />
         ) : (
-          <div className="mt-7">
+          <div className="mt-7 xl:scrollbar-hide xl:h-[750px] xl:overflow-scroll">
             {!stockLists && <div className="text-center">Please select a date to view the stock</div>}
             {stockLists && isObjectEmpty(stockLists) && (
               <div className="text-center">Stock not submited on this day</div>
