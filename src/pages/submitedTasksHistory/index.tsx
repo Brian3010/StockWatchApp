@@ -37,8 +37,8 @@ export default function SubmitedTasksHistory() {
             {images.map((img, index) => (
               <tr key={index} className="border-blue-gray-200 border">
                 <td className="min-w-24 border p-1 font-medium">Fryer 1 completely off</td>
-                <td className="p-1 ">
-                  <img src={img} alt="image task" className="aspect-[9/16] h-full w-full object-fill" />
+                <td className="relative p-1" style={{ width: 'calc(100%)', paddingTop: 'calc(16 / 9 * 100%)' }}>
+                  <img src={img} alt="image task" className="absolute inset-0 h-full w-full object-cover" />
                 </td>
               </tr>
             ))}
