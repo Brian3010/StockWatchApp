@@ -52,7 +52,7 @@ export default function TaskImagesUpload({ tasksList }: TaskImagesUploadProps) {
       // console.log(res);
       setIsLoading(false);
       setFlashMessage({ message: res, type: 'success' });
-      return navigate('..');
+      return navigate(-1);
     } catch (error) {
       console.error(error);
     }

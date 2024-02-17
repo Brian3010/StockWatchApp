@@ -13,6 +13,7 @@ export default function ClosingTasks() {
       try {
         setIsLoading(true);
         const res = await getBOHTasks();
+        console.log({res});
         if (res) setTasksList(res);
         setIsLoading(false);
       } catch (error) {
