@@ -1,44 +1,76 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
-import { TODAY_DATE } from '../../firebase';
+import IsLoading from '../../components/IsLoading';
+import { TaskImagesByDateResT, getBOHTasks, getTaskImagesByDate } from '../../firebase';
 
 export default function SubmitedTasksHistory() {
+  const { DATE } = useParams();
+  console.log({ DATE });
+  const [taskImageList, setTaskImageList] = useState<TaskImagesByDateResT>({});
+  const [taskNames, setTaskNames] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!DATE) return;
+
+    (async () => {
+      try {
+        setIsLoading(true);
+        const res = await getTaskImagesByDate(DATE);
+        console.log({ res });
+        setTaskNames(await getBOHTasks());
+        setTaskImageList(res);
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, [DATE]);
+
   return (
     <>
       <div className="flex border-b p-4">
         <BackButton className="mr-auto" to="/boh-closing-tasks-menu" />
-        <p className="mr-auto font-medium">BOH Closing tasks</p>
+        <p className="mr-auto font-medium">BOH Closing Tasks</p>
       </div>
 
-      {/* <div className="relative max-w-sm">
-        <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
-          <svg
-            className="h-4 w-4 text-gray-500 dark:text-gray-400"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-          </svg>
+      {/** Content */}
+      {isLoading ? (
+        <IsLoading />
+      ) : (
+        <div className="xl:scrollbar-hide mb-3 pt-10 xl:h-[750px] xl:overflow-scroll">
+          {Object.keys(taskImageList).length <= 0 ? (
+            <div className="flex flex-col items-center gap-2 pt-16">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-8 w-8">
+                <path
+                  fillRule="evenodd"
+                  d="m6.72 5.66 11.62 11.62A8.25 8.25 0 0 0 6.72 5.66Zm10.56 12.68L5.66 6.72a8.25 8.25 0 0 0 11.62 11.62ZM5.105 5.106c3.807-3.808 9.98-3.808 13.788 0 3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+
+              <p className="text-md font-semibold">Data unavailable due to incomplete tasks</p>
+            </div>
+          ) : (
+            <div className="grid gap-x-3 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2">
+              <h1 className="text-md text-center font-semibold underline">Completed Tasks</h1>
+              {taskNames.map((task, index) => (
+                <div key={index} className="">
+                  <div className="pb-2">
+                    <p className="text-center font-semibold">{task}</p>
+                  </div>
+                  <div className="aspect-[3/4]">
+                    <img className="h-full w-full rounded-xl object-cover" src={taskImageList[task]} alt="task_image" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-        <input
-          type="date"
-          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-          placeholder="Select date"
-        />
-      </div> */}
+      )}
 
-      <div className="mb-3 ">
-        <label htmlFor="stock-history-date">Select a date: </label>
-        <input
-          className="rounded-md border border-black hover:bg-gray-100"
-          type="date"
-          id="stock-history-date"
-          placeholder="Select a date"
-          // onChange={handleDateChange}
-        />
-      </div>
+      {/** ===========*/}
     </>
   );
 }

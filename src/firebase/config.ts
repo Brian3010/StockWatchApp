@@ -33,6 +33,8 @@ export const taskImagesRef = collection(db, 'BOHTaskImages');
 const storage = getStorage();
 export const taskImgStorageByDateRef = (date: string, id: string) => ref(storage, `BOH-tasks/${date}/${id}`);
 
+export const taskImgStorageRef = (date: string) => ref(storage, `BOH-tasks/${date}`);
+
 // typescript with firebase: https://medium.com/javascript-in-plain-english/using-firestore-with-typescript-in-the-v9-sdk-cf36851bb099
 
 // export const stockListsConverter = {
