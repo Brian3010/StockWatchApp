@@ -1,7 +1,7 @@
 import { DocumentData, Timestamp, getDoc, getDocs, updateDoc } from 'firebase/firestore';
-import { uploadBytes } from 'firebase/storage';
+import { getDownloadURL, listAll, uploadBytes } from 'firebase/storage';
 import { replaceUnderscore } from '../utils/helpers';
-import { collectionRef, documentRef, taskImagesRef, taskImgStorageByDateRef } from './config';
+import { collectionRef, documentRef, taskImagesRef, taskImgStorageByDateRef, taskImgStorageRef } from './config';
 
 // this function get yesterday time in server, return '19 January 2024 at 03:57:19 UTC+11'
 export const getYesterdayServerTime = () => {
@@ -253,8 +253,29 @@ export const uploadTaskImages = (pictures: PicturesT) => {
   });
 };
 
+//
+export type TaskImagesByDateResT = { [key: string]: string };
 export const getTaskImagesByDate = (date: string) => {
-  return new Promise((resolve, reject) => {
-    (async () => {})();
+  return new Promise<TaskImagesByDateResT>((resolve, reject) => {
+    (async () => {
+      try {
+        // get all images
+        const res = await listAll(taskImgStorageRef(date));
+        const imgObj: TaskImagesByDateResT = {};
+
+        await Promise.all(
+          res.items.map(async it => {
+            //get image urls
+            const imgUrl = await getDownloadURL(it);
+            // imgArr.push({ [it.name]: imgUrl });
+            imgObj[it.name] = imgUrl;
+          }),
+        );
+
+        return resolve(imgObj);
+      } catch (error) {
+        return reject(error);
+      }
+    })();
   });
 };
