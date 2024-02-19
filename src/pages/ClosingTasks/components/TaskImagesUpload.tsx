@@ -26,8 +26,6 @@ export default function TaskImagesUpload({ tasksList }: TaskImagesUploadProps) {
   const handleOnChange = (file: File, id: string) => {
     // console.log(event.target.files[0]);
 
-    console.log(id);
-
     const blob = URL.createObjectURL(file);
     const newPic = { id: id, picBlob: blob, picFile: file };
 
@@ -51,8 +49,8 @@ export default function TaskImagesUpload({ tasksList }: TaskImagesUploadProps) {
       const res = await uploadTaskImages(pictures);
       // console.log(res);
       setIsLoading(false);
-      setFlashMessage({ message: res, type: 'success' });
-      return navigate(-1);
+      setFlashMessage({ message: res.toString(), type: 'success' });
+      return navigate('..', { relative: 'path' });
     } catch (error) {
       console.error(error);
     }

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
+import FlashMessage from '../../components/FlashMessage';
 import { TODAY_DATE, YESTERDAY_DATE } from '../../firebase';
 
 export default function ClosingMenu() {
@@ -37,6 +38,7 @@ export default function ClosingMenu() {
           </Link>
         </div>
       </div>
+      <FlashMessage />
     </>
   );
 }
