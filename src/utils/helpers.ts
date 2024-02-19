@@ -1,3 +1,4 @@
+import imageCompression, { Options } from 'browser-image-compression';
 import { DocumentData } from 'firebase/firestore';
 
 export const replaceUnderscore = (string: string) => string.replace(/_/g, ' ');
@@ -38,4 +39,40 @@ export const validateStockFormInputs = (formInput: DocumentData | undefined, ite
   }
 
   return true;
+};
+
+// this func compress a list of images
+// export const compressImageFiles = (files: File[]) => {
+//   const options: Options = {
+//     maxSizeMB: 0.2,
+//   };
+//   const compressFileList: File[] = [];
+//   try {
+//     Promise.all(
+//       files.map(async f => {
+//         const compressFile = await imageCompression(f, options);
+//         compressFileList.push(compressFile);
+//       }),
+//     );
+
+//     console.log({ compressFileList });
+//   } catch (error) {
+//     console.error('Compressing errors caught: ', error);
+//   }
+// };
+
+export const compressImageFile = (file: File) => {
+  const options: Options = {
+    maxSizeMB: 0.1,
+  };
+  return new Promise<File>((resolve, reject) => {
+    (async () => {
+      try {
+        const compressFile = await imageCompression(file, options);
+        return resolve(compressFile);
+      } catch (error) {
+        return reject(error);
+      }
+    })();
+  });
 };

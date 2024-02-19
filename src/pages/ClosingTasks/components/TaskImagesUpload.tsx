@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import IsLoading from '../../../components/IsLoading';
 import { PicturesT, uploadTaskImages } from '../../../firebase';
@@ -22,14 +22,14 @@ export default function TaskImagesUpload({ tasksList }: TaskImagesUploadProps) {
   const { setFlashMessage } = useFlashMessage();
   const navigate = useNavigate();
 
-  // console.log({ pictures });
-  const handleOnChange: ChangeEventHandler<HTMLInputElement> = event => {
+  // console.log({ pictures, tasksList });
+  const handleOnChange = (file: File, id: string) => {
     // console.log(event.target.files[0]);
-    if (!event.target.files || event.target.files.length === 0) return;
-    const { name } = event.target;
 
-    const blob = URL.createObjectURL(event.target.files[0]);
-    const newPic = { id: name, picBlob: blob, picFile: event.target.files[0] };
+    console.log(id);
+
+    const blob = URL.createObjectURL(file);
+    const newPic = { id: id, picBlob: blob, picFile: file };
 
     // setPictures(prev => [...prev, newPic]);
     setPictures(prev => {

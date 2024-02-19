@@ -53,19 +53,21 @@ export default function SubmitedTasksHistory() {
               <p className="text-md font-semibold">Data unavailable due to incomplete tasks</p>
             </div>
           ) : (
-            <div className="grid gap-x-3 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2">
-              <h1 className="text-md text-center font-semibold underline">Completed Tasks</h1>
-              {taskNames.map((task, index) => (
-                <div key={index} className="">
-                  <div className="pb-2">
-                    <p className="text-center font-semibold">{task}</p>
+            <>
+              <h1 className="text-md text-center font-semibold underline pb-8">Completed Tasks</h1>
+              <div className="grid gap-x-3 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2">
+                {taskNames.map((task, index) => (
+                  <div key={index} className="">
+                    <div className="pb-2">
+                      <p className="text-center font-semibold">{task}</p>
+                    </div>
+                    <div className="aspect-[3/4]">
+                      <img loading="lazy" className="h-full w-full rounded-xl object-cover" src={taskImageList[task]} />
+                    </div>
                   </div>
-                  <div className="aspect-[3/4]">
-                    <img className="h-full w-full rounded-xl object-cover" src={taskImageList[task]} alt="task_image" />
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            </>
           )}
         </div>
       )}
