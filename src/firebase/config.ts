@@ -1,5 +1,5 @@
 import { FirebaseOptions, initializeApp } from 'firebase/app';
-import { collection, doc, getFirestore } from 'firebase/firestore';
+import { collection, doc, getFirestore} from 'firebase/firestore';
 import { getStorage, ref } from 'firebase/storage';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional

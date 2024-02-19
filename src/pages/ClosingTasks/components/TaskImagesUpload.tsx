@@ -1,6 +1,6 @@
-import { ChangeEventHandler, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import IsLoading from '../../../components/IsLoading';
+import CompressingIcon from '../../../components/CompressingIcon';
 import { PicturesT, uploadTaskImages } from '../../../firebase';
 import useFlashMessage from '../../../hooks/useFlashMessage';
 import TaskImageItem from './TaskImageItem';
@@ -22,14 +22,14 @@ export default function TaskImagesUpload({ tasksList }: TaskImagesUploadProps) {
   const { setFlashMessage } = useFlashMessage();
   const navigate = useNavigate();
 
-  // console.log({ pictures });
-  const handleOnChange: ChangeEventHandler<HTMLInputElement> = event => {
+  // console.log({ pictures, tasksList });
+  const handleOnChange = (file: File, id: string) => {
     // console.log(event.target.files[0]);
-    if (!event.target.files || event.target.files.length === 0) return;
-    const { name } = event.target;
 
-    const blob = URL.createObjectURL(event.target.files[0]);
-    const newPic = { id: name, picBlob: blob, picFile: event.target.files[0] };
+    console.log(id);
+
+    const blob = URL.createObjectURL(file);
+    const newPic = { id: id, picBlob: blob, picFile: file };
 
     // setPictures(prev => [...prev, newPic]);
     setPictures(prev => {
@@ -58,9 +58,7 @@ export default function TaskImagesUpload({ tasksList }: TaskImagesUploadProps) {
     }
   };
 
-  return isLoading ? (
-    <IsLoading />
-  ) : (
+  return (
     <div className="xl:scrollbar-hide xl:h-[670px] xl:overflow-scroll">
       <div className="mx-auto grid grid-cols-1 gap-2 border-b p-1 py-3 md:grid-cols-2">
         {tasksList.map((task, index) => (
@@ -71,13 +69,20 @@ export default function TaskImagesUpload({ tasksList }: TaskImagesUploadProps) {
         <Link to=".." relative="path" className="rounded px-4  py-2 font-semibold underline hover:bg-gray-200">
           Cancel
         </Link>
-        <button
-          className="rounded  bg-gami-primary px-4 py-2 font-bold text-gami-text hover:brightness-90"
-          type="submit"
-          onClick={handleSubmit}
-        >
-          Submit
-        </button>
+
+        {isValidInput(pictures, tasksList) ? (
+          <button
+            className="rounded bg-gami-primary px-4 py-2 font-bold text-gami-text hover:brightness-90"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            {isLoading ? <CompressingIcon /> : 'Submit'}
+          </button>
+        ) : (
+          <button className="cursor-not-allowed rounded bg-gray-300 px-4 py-2 font-bold opacity-50" disabled>
+            Submit
+          </button>
+        )}
       </div>
     </div>
   );
