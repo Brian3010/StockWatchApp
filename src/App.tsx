@@ -66,7 +66,7 @@ function App() {
                 />
               </svg>
             </div>
-            <span>Closing Tasks (In Progress)</span>
+            <span>Closing Checklists (In Progress)</span>
           </div>
         </Link>
 

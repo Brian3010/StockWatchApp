@@ -39,7 +39,7 @@ export default function StockList() {
     <>
       <div className="flex border-b p-4 ">
         <BackButton className="mr-auto" to="/stocks" />
-        <p className="mr-auto text-lg font-bold ">{replaceUnderscore(category!)}</p>
+        <p className="mr-auto text-lg font-bold">{replaceUnderscore(category!)}</p>
       </div>
       {isLoading ? <IsLoading /> : <div className="mt-8 border-t ">{stockLists && <Forms stock={stockLists} />}</div>}
     </>

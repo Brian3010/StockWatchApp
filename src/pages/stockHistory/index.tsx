@@ -31,7 +31,7 @@ export default function StockHistory() {
       {/** heading */}
       <div className="flex border-b p-4">
         <BackButton className="mr-auto" to="../" />
-        <p className="mr-auto font-medium">Stock History</p>
+        <p className="mr-auto text-lg font-bold">Stock History</p>
       </div>
 
       {/** content */}
@@ -50,7 +50,7 @@ export default function StockHistory() {
         {isLoading ? (
           <IsLoading />
         ) : (
-          <div className="mt-7 xl:scrollbar-hide xl:h-[750px] xl:overflow-scroll">
+          <div className="xl:scrollbar-hide mt-7 xl:h-[750px] xl:overflow-scroll">
             {!stockLists && <div className="text-center">Please select a date to view the stock</div>}
             {stockLists && isObjectEmpty(stockLists) && (
               <div className="text-center">Stock not submited on this day</div>

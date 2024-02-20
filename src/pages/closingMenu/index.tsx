@@ -8,13 +8,13 @@ export default function ClosingMenu() {
     <>
       <div className="flex border-b p-4">
         <BackButton className="mr-auto" to="../" />
-        <p className="mr-auto font-medium">Closing Tasks</p>
+        <p className="mr-auto text-lg font-bold">Closing Checklists</p>
       </div>
 
       <div className="flex flex-col gap-2">
         <div className="mt-10 rounded-md  border shadow-sm">
           <Link className="relative flex flex-col gap-1  p-5" to={`/boh-closing-tasks-menu/closing-tasks`}>
-            <span className="font-medium">BOH Tasks</span>
+            <span className="font-medium">BOH Checklist</span>
 
             <div className="pr-inherit absolute right-0 top-1/2 -translate-y-1/2 transform ">
               <span className={`inline-block w-fit rounded-xl px-3  py-1 text-xs font-semibold text-gray-700`}>

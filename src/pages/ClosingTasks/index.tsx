@@ -26,13 +26,13 @@ export default function ClosingTasks() {
     <>
       <div className="flex border-b p-4">
         <BackButton className="mr-auto" to="/boh-closing-tasks-menu" />
-        <p className="mr-auto font-medium">BOH Closing tasks</p>
+        <p className="mr-auto text-lg font-bold">BOH Checklist</p>
       </div>
       {isLoading ? (
         <IsLoading />
       ) : (
         <div className="">
-          <h1 className="border-b pb-3 pt-8 text-xl font-bold">List of tasks:</h1>
+          <h1 className="border-b pt-8 text-lg font-semibold">Complete the following tasks:</h1>
 
           {/** begin of the list */}
           <TaskImagesUpload tasksList={tasksList} />
