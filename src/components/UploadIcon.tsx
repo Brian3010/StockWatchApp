@@ -1,7 +1,7 @@
 export default function UploadIcon() {
   return (
     <svg
-      className="h-7 w-7 text-gami-text file:hover:cursor-pointer"
+      className="h-6 w-6 text-gami-text file:hover:cursor-pointer"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"

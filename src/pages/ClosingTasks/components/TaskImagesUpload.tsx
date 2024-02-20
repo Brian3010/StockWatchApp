@@ -58,7 +58,7 @@ export default function TaskImagesUpload({ tasksList }: TaskImagesUploadProps) {
 
   return (
     <div className="xl:scrollbar-hide xl:h-[670px] xl:overflow-scroll">
-      <div className="mx-auto grid grid-cols-1 gap-2 border-b p-1 py-3 md:grid-cols-2">
+      <div className="mx-auto grid grid-cols-1 gap-2 border-b p-1 py-3 md:grid-cols-2 xl:grid-cols-1">
         {tasksList.map((task, index) => (
           <TaskImageItem key={index} onChange={handleOnChange} task={task} />
         ))}
