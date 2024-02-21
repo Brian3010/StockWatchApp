@@ -1,15 +1,12 @@
 import { Link } from 'react-router-dom';
-import BackButton from '../../components/BackButton';
 import FlashMessage from '../../components/FlashMessage';
+import Heading from '../../components/Heading';
 import { TODAY_DATE, YESTERDAY_DATE } from '../../firebase';
 
 export default function ClosingMenu() {
   return (
     <>
-      <div className="flex border-b p-4">
-        <BackButton className="mr-auto" to="../" />
-        <p className="mr-auto text-lg font-bold">Closing Checklists</p>
-      </div>
+      <Heading to="../" headerName="Closing Checklists" />
 
       <div className="flex flex-col gap-2">
         <div className="mt-10 rounded-md  border shadow-sm">

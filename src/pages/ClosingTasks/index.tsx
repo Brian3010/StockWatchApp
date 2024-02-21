@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import BackButton from '../../components/BackButton';
+import Heading from '../../components/Heading';
 import IsLoading from '../../components/IsLoading';
 import { getBOHTasks } from '../../firebase';
 import TaskImagesUpload from './components/TaskImagesUpload';
@@ -13,7 +14,7 @@ export default function ClosingTasks() {
       try {
         setIsLoading(true);
         const res = await getBOHTasks();
-        console.log({res});
+        console.log({ res });
         if (res) setTasksList(res);
         setIsLoading(false);
       } catch (error) {
@@ -24,10 +25,7 @@ export default function ClosingTasks() {
 
   return (
     <>
-      <div className="flex border-b p-4">
-        <BackButton className="mr-auto" to="/boh-closing-tasks-menu" />
-        <p className="mr-auto text-lg font-bold">BOH Checklist</p>
-      </div>
+      <Heading to="/boh-closing-tasks-menu" headerName="BOH CheckList" />
       {isLoading ? (
         <IsLoading />
       ) : (

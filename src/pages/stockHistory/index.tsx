@@ -1,5 +1,5 @@
 import { ChangeEventHandler, useState } from 'react';
-import BackButton from '../../components/BackButton';
+import Heading from '../../components/Heading';
 import IsLoading from '../../components/IsLoading';
 import { GetStockListsByDateT, getStockListsByDate } from '../../firebase';
 import { isObjectEmpty } from '../../utils/helpers';
@@ -29,10 +29,7 @@ export default function StockHistory() {
   return (
     <>
       {/** heading */}
-      <div className="flex border-b p-4">
-        <BackButton className="mr-auto" to="../" />
-        <p className="mr-auto text-lg font-bold">Stock History</p>
-      </div>
+      <Heading to="../" headerName="Stock History" />
 
       {/** content */}
       <div className="mt-8 px-1 sm:px-0">

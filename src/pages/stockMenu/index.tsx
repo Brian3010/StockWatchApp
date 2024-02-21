@@ -3,8 +3,8 @@ import { getAllCategories } from '../../firebase';
 import { replaceUnderscore } from '../../utils/helpers';
 
 import { Link } from 'react-router-dom';
-import BackButton from '../../components/BackButton';
 import FlashMessage from '../../components/FlashMessage';
+import Heading from '../../components/Heading';
 import IsLoading from '../../components/IsLoading';
 
 export default function StockMenu() {
@@ -44,17 +44,14 @@ export default function StockMenu() {
 
   return (
     <>
-      <div className="flex border-b p-4 ">
-        <BackButton className="mr-auto" to="../" />
-        <p className="mr-auto text-lg font-bold ">Stock List</p>
-      </div>
+      <Heading to="../" headerName="Stock Lists" />
 
       {/* render categories */}
       {isLoading ? (
         <IsLoading />
       ) : (
         <>
-          <h1 className="pb-3 pt-8 text-xl font-bold">Select a count list:</h1>
+          <h1 className="pb-3 pt-8 text-lg font-semibold">Select a count list:</h1>
           <div className="rounded-md border">
             {categories &&
               categories.map((c, index) => (

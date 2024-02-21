@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
+import Heading from '../../components/Heading';
 import IsLoading from '../../components/IsLoading';
 import { TaskImagesByDateResT, getBOHTasks, getTaskImagesByDate } from '../../firebase';
 
@@ -30,10 +31,7 @@ export default function SubmitedTasksHistory() {
 
   return (
     <>
-      <div className="flex border-b p-4">
-        <BackButton className="mr-auto" to="/boh-closing-tasks-menu" />
-        <p className="mr-auto font-medium">BOH Closing Tasks</p>
-      </div>
+      <Heading to="/boh-closing-tasks-menu" headerName="Upload history" />
 
       {/** Content */}
       {isLoading ? (
@@ -54,7 +52,7 @@ export default function SubmitedTasksHistory() {
             </div>
           ) : (
             <>
-              <h1 className="text-md text-center font-semibold underline pb-8">Completed Tasks</h1>
+              <h1 className="text-md pb-8 text-center font-semibold underline">Completed Tasks</h1>
               <div className="grid gap-x-3 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2">
                 {taskNames.map((task, index) => (
                   <div key={index} className="">
