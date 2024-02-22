@@ -32,23 +32,23 @@ export default function TaskImageItem({ task, onChange }: TaskImageItemProps) {
   return (
     <label
       htmlFor={task}
-      className="flex min-h-[210px] cursor-pointer items-center justify-evenly rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100"
+      className="flex min-h-[210px] cursor-pointer items-center justify-evenly gap-2 rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-2 hover:bg-gray-100"
     >
       {!isLoading && picture && (
-        <div className="h-[85%] max-w-[125px]">
-          <img className="h-full w-full rounded-sm object-cover" src={picture} alt="image-task" />
+        <div className="flex flex-1 items-center">
+          <img className="max-h-full w-full rounded-md object-contain" src={picture} alt="image-task" />
         </div>
       )}
       {isLoading ? (
         <CompressingIcon />
       ) : (
         <>
-          <div className="flex flex-col items-center justify-center pb-6 pt-5">
+          <div className="flex flex-1 flex-col items-center justify-center">
             <UploadIcon />
-            <p className="">
-              <span className="font-semibold">{task}</span>
+            <p className="text-center">
+              <span className=" text-sm font-bold">{task}</span>
             </p>
-            <p className="text-xs text-gray-500 ">Upload Here</p>
+            <p className="text-xs text-gray-500">Upload Here</p>
           </div>
 
           <input

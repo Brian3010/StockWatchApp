@@ -1,6 +1,7 @@
 import { ChangeEventHandler, useState } from 'react';
-import BackButton from '../../components/BackButton';
+import Heading from '../../components/Heading';
 import IsLoading from '../../components/IsLoading';
+import NoDataIcon from '../../components/NoDataIcon';
 import { GetStockListsByDateT, getStockListsByDate } from '../../firebase';
 import { isObjectEmpty } from '../../utils/helpers';
 import StockTabs from './components/StockTabs';
@@ -29,14 +30,11 @@ export default function StockHistory() {
   return (
     <>
       {/** heading */}
-      <div className="flex border-b p-4">
-        <BackButton className="mr-auto" to="../" />
-        <p className="mr-auto font-medium">Stock History</p>
-      </div>
+      <Heading to="../" headerName="Stock History" />
 
       {/** content */}
       <div className="mt-8 px-1 sm:px-0">
-        <div className="mb-3 ">
+        <div className="mb-3 font-medium">
           <label htmlFor="stock-history-date">Select a date: </label>
           <input
             className="rounded-md border border-black hover:bg-gray-100"
@@ -50,10 +48,13 @@ export default function StockHistory() {
         {isLoading ? (
           <IsLoading />
         ) : (
-          <div className="mt-7 xl:scrollbar-hide xl:h-[750px] xl:overflow-scroll">
-            {!stockLists && <div className="text-center">Please select a date to view the stock</div>}
+          <div className="xl:scrollbar-hide mt-7 font-semibold xl:h-[750px] xl:overflow-scroll">
+            {!stockLists && <div className="pt-10 text-center">Please select a date to view the stock</div>}
             {stockLists && isObjectEmpty(stockLists) && (
-              <div className="text-center">Stock not submited on this day</div>
+              <div className="flex flex-col items-center justify-center gap-2 pt-36">
+                <NoDataIcon />
+                <div className="text-center">Stock not submited on this day</div>
+              </div>
             )}
             {stockLists && !isObjectEmpty(stockLists) && <StockTabs stockLists={stockLists} />}
           </div>

@@ -26,8 +26,6 @@ export default function TaskImagesUpload({ tasksList }: TaskImagesUploadProps) {
   const handleOnChange = (file: File, id: string) => {
     // console.log(event.target.files[0]);
 
-    console.log(id);
-
     const blob = URL.createObjectURL(file);
     const newPic = { id: id, picBlob: blob, picFile: file };
 
@@ -51,8 +49,8 @@ export default function TaskImagesUpload({ tasksList }: TaskImagesUploadProps) {
       const res = await uploadTaskImages(pictures);
       // console.log(res);
       setIsLoading(false);
-      setFlashMessage({ message: res, type: 'success' });
-      return navigate(-1);
+      setFlashMessage({ message: res.toString(), type: 'success' });
+      return navigate('..', { relative: 'path' });
     } catch (error) {
       console.error(error);
     }
@@ -60,7 +58,7 @@ export default function TaskImagesUpload({ tasksList }: TaskImagesUploadProps) {
 
   return (
     <div className="xl:scrollbar-hide xl:h-[670px] xl:overflow-scroll">
-      <div className="mx-auto grid grid-cols-1 gap-2 border-b p-1 py-3 md:grid-cols-2">
+      <div className="mx-auto grid grid-cols-1 gap-2 border-b p-1 py-3 md:grid-cols-2 xl:grid-cols-1">
         {tasksList.map((task, index) => (
           <TaskImageItem key={index} onChange={handleOnChange} task={task} />
         ))}

@@ -1,5 +1,5 @@
 import { FirebaseOptions, initializeApp } from 'firebase/app';
-import { collection, doc, getFirestore} from 'firebase/firestore';
+import { collection, doc, getFirestore } from 'firebase/firestore';
 import { getStorage, ref } from 'firebase/storage';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -34,6 +34,8 @@ const storage = getStorage();
 export const taskImgStorageByDateRef = (date: string, id: string) => ref(storage, `BOH-tasks/${date}/${id}`);
 
 export const taskImgStorageRef = (date: string) => ref(storage, `BOH-tasks/${date}`);
+
+export const imageStorageRef = ref(storage, 'BOH-tasks');
 
 // typescript with firebase: https://medium.com/javascript-in-plain-english/using-firestore-with-typescript-in-the-v9-sdk-cf36851bb099
 
