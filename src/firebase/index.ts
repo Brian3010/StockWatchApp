@@ -286,7 +286,7 @@ export const isTaskSubmitted = () => {
     (async () => {
       try {
         // get all images
-        const res = await listAll(taskImgStorageRef(YESTERDAY_DATE));
+        const res = await listAll(taskImgStorageRef(TODAY_DATE));
         return resolve(!!res.items.length);
       } catch (error) {
         return reject(error);
