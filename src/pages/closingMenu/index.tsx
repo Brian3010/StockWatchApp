@@ -1,9 +1,24 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import FlashMessage from '../../components/FlashMessage';
 import Heading from '../../components/Heading';
-import { TODAY_DATE, YESTERDAY_DATE } from '../../firebase';
+import { TODAY_DATE, YESTERDAY_DATE, isTaskSubmitted } from '../../firebase';
 
 export default function ClosingMenu() {
+  const [isSubmited, setIsSubmited] = useState<boolean>();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await isTaskSubmitted();
+        setIsSubmited(res);
+        console.log({ res });
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, []);
+
   return (
     <>
       <Heading to="../" headerName="Closing Checklists" />
@@ -14,8 +29,10 @@ export default function ClosingMenu() {
             <span className="font-medium">BOH Checklist</span>
 
             <div className="pr-inherit absolute right-0 top-1/2 -translate-y-1/2 transform ">
-              <span className={`inline-block w-fit rounded-xl px-3  py-1 text-xs font-semibold text-gray-700`}>
-                Not submited today
+              <span
+                className={`inline-block w-fit rounded-xl px-3  py-1 text-xs font-semibold ${isSubmited ? 'bg-green-200 text-green-700' : 'bg-gray-200 text-gray-700'} `}
+              >
+                {isSubmited ? 'Submited' : 'Not submited today'}
               </span>
             </div>
           </Link>

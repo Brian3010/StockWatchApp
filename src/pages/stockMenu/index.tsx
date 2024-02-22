@@ -59,7 +59,7 @@ export default function StockMenu() {
                   <span className="font-medium">{c.label}</span>
 
                   <span
-                    className={`inline-block w-fit rounded-xl ${c.createdAt ? ` bg-green-200 text-emerald-900` : `bg-yellow-200 text-yellow-950`}  px-3  py-1 text-xs font-semibold`}
+                    className={`inline-block w-fit rounded-xl ${c.createdAt ? ` bg-green-200 text-emerald-700` : `bg-gray-200 text-gray-700`}  px-3  py-1 text-xs font-semibold`}
                   >
                     {c.createdAt ? `Updated on ${c.createdAt}` : 'Not yet updated today'}
                   </span>

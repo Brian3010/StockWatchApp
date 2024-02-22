@@ -253,7 +253,7 @@ export const uploadTaskImages = (pictures: PicturesT) => {
   });
 };
 
-//
+// get all the task images with the Date given, return {"task":'url',...}
 export type TaskImagesByDateResT = { [key: string]: string };
 export const getTaskImagesByDate = (date: string) => {
   return new Promise<TaskImagesByDateResT>((resolve, reject) => {
@@ -273,6 +273,21 @@ export const getTaskImagesByDate = (date: string) => {
         );
 
         return resolve(imgObj);
+      } catch (error) {
+        return reject(error);
+      }
+    })();
+  });
+};
+
+// Function check if tasks uploaded for today's date
+export const isTaskSubmitted = () => {
+  return new Promise<boolean>((resolve, reject) => {
+    (async () => {
+      try {
+        // get all images
+        const res = await listAll(taskImgStorageRef(YESTERDAY_DATE));
+        return resolve(!!res.items.length);
       } catch (error) {
         return reject(error);
       }
