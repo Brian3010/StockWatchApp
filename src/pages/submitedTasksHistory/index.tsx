@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import BackButton from '../../components/BackButton';
 import Heading from '../../components/Heading';
 import IsLoading from '../../components/IsLoading';
 import { TaskImagesByDateResT, getBOHTasks, getTaskImagesByDate } from '../../firebase';
+import TaskImageDisplay from './components/TaskImageDisplay';
 
 export default function SubmitedTasksHistory() {
   const { DATE } = useParams();
@@ -51,21 +51,7 @@ export default function SubmitedTasksHistory() {
               <p className="text-md font-semibold">Data unavailable due to incomplete tasks</p>
             </div>
           ) : (
-            <>
-              <h1 className="text-md pb-8 text-center font-semibold underline">Completed Tasks</h1>
-              <div className="grid gap-x-3 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2">
-                {taskNames.map((task, index) => (
-                  <div key={index} className="">
-                    <div className="pb-2">
-                      <p className="text-center font-semibold">{task}</p>
-                    </div>
-                    <div className="aspect-[3/4]">
-                      <img loading="lazy" className="h-full w-full rounded-xl object-cover" src={taskImageList[task]} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </>
+            <TaskImageDisplay taskNames={taskNames} taskImageList={taskImageList} />
           )}
         </div>
       )}
