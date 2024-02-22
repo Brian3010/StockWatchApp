@@ -10,7 +10,7 @@ export default function SubmitedTasksHistory() {
   console.log({ DATE });
   const [taskImageList, setTaskImageList] = useState<TaskImagesByDateResT>({});
   const [taskNames, setTaskNames] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!DATE) return;
@@ -38,7 +38,7 @@ export default function SubmitedTasksHistory() {
         <IsLoading />
       ) : (
         <div className="xl:scrollbar-hide mb-3 pt-10 xl:h-[750px] xl:overflow-scroll">
-          {Object.keys(taskImageList).length <= 0 ? (
+          {Object.keys(taskImageList).length === 0 ? (
             <div className="flex flex-col items-center gap-2 pt-16">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-8 w-8">
                 <path
