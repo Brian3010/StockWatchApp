@@ -22,16 +22,16 @@ export default function ClosingMenu() {
         </div>
         <div className="flex gap-2">
           <Link
-            className="inline-block rounded-xl bg-orange-300 p-2 shadow-sm"
+            className="inline-block rounded-2xl bg-orange-200 p-2 text-orange-950 shadow-sm"
             to={`/boh-closing-tasks-menu/submited-tasks-history/${YESTERDAY_DATE}`}
           >
             <span className="text-sm font-semibold">Yesterday Uploads</span>
           </Link>
           <Link
-            className="inline-block rounded-xl bg-amber-300 p-2 shadow-sm "
+            className="inline-block rounded-2xl bg-amber-200 p-2  text-amber-950 shadow-sm "
             to={`/boh-closing-tasks-menu/submited-tasks-history/${TODAY_DATE}`}
           >
-            <span className="text-sm font-semibold ">Today Uploads</span>
+            <span className="text-sm font-semibold">Today Uploads</span>
           </Link>
         </div>
       </div>
