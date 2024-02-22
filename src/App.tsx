@@ -66,7 +66,7 @@ function App() {
                 />
               </svg>
             </div>
-            <span>Closing Checklists (In Progress)</span>
+            <span>Closing Checklists (New 🐣)</span>
           </div>
         </Link>
 
