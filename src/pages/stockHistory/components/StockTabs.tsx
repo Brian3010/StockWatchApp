@@ -16,7 +16,8 @@ export default function StockTabs({ stockLists }: StockTabsProps) {
     <>
       <div className="pb-3 text-right">
         <label htmlFor="stock-sorted-checkbox" className="me-2 inline-flex">
-          <span className="me-1 h-3 w-3 self-center rounded-full bg-yellow-400"></span> <span>Low Stock</span>
+          <span className="me-1 h-3 w-3 self-center rounded-full bg-yellow-400" />{' '}
+          <span className="font-semibold">Low Stock</span>
         </label>
         <input
           type="checkbox"

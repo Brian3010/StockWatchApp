@@ -33,7 +33,7 @@ export default function StockHistory() {
 
       {/** content */}
       <div className="mt-8 px-1 sm:px-0">
-        <div className="mb-3 ">
+        <div className="mb-3 font-medium">
           <label htmlFor="stock-history-date">Select a date: </label>
           <input
             className="rounded-md border border-black hover:bg-gray-100"
