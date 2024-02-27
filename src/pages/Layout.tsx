@@ -4,7 +4,7 @@ import NavBar from '../components/NavBar';
 
 export default function Layout() {
   const location = useLocation();
-  // console.log({ location });
+
   return (
     <>
       <div className="mx-auto h-screen xl:h-[950px] xl:max-w-screen-xs">
@@ -14,7 +14,7 @@ export default function Layout() {
             <Outlet />
           </main>
           {location.pathname === '/' && (
-            <footer className={`bg-neutral-200 p-[1rem] ${location.pathname === '/' && 'absolute inset-x-0 bottom-0'}`}>
+            <footer className={`bg-neutral-200 p-3 ${location.pathname === '/' && 'absolute inset-x-0 bottom-0'}`}>
               <Footer />
             </footer>
           )}

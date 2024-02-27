@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
+import TimeAndLocation from './components/TimeAndLocation';
 
 interface menuItem {
   name: string;
@@ -73,7 +74,9 @@ function App() {
   return (
     <>
       {/* <div className="flex flex-col justify-center gap-3 pt-10"> */}
-      <div className="mobileXS:grid-cols-1 grid gap-2 pt-6 mobileS:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-2 ">
+      <TimeAndLocation />
+      <h1 className="text-xl font-bold">Dashboard</h1>
+      <div className="grid gap-2 pt-2 mobileXS:grid-cols-1 mobileS:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-2 ">
         {/** list of items */}
         {menuItems.map((item, index) => (
           <Link

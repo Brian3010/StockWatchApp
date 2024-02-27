@@ -76,3 +76,15 @@ export const compressImageFile = (file: File) => {
     })();
   });
 };
+
+export const getCurrentTime = () => {
+  const currentDate = new Date().toLocaleString('en-AU', {
+    weekday: 'long',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true, // Use 12-hour clock
+  });
+  return currentDate;
+};
