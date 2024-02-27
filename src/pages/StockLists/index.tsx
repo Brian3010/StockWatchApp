@@ -39,7 +39,7 @@ export default function StockList() {
     <>
       <Heading to="/stocks" headerName={replaceUnderscore(category!)} />
 
-      {isLoading ? <IsLoading /> : <div className="mt-8 border-t ">{stockLists && <Forms stock={stockLists} />}</div>}
+      {isLoading ? <IsLoading /> : <div className="border-t pt-20">{stockLists && <Forms stock={stockLists} />}</div>}
     </>
   );
 }

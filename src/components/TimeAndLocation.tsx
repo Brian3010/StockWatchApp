@@ -8,7 +8,7 @@ export default function TimeAndLocation() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentDate(getCurrentTime());
-    }, 2000); // 2 seconds
+    }, 6000); // 2 seconds
 
     return () => {
       clearInterval(intervalId);
@@ -16,8 +16,8 @@ export default function TimeAndLocation() {
   }, []);
 
   return (
-    <div className="flex justify-between gap-1 pb-6 pt-1 text-sm font-medium">
-      <span>{currentDate}</span>
+    <div className="flex justify-between pb-6 pt-5 text-sm font-medium flex-wrap gap-2">
+      <span className='text-base'>{currentDate}</span>
       <span className="flex items-center underline ">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="mb-1 h-4 w-4">
           <path

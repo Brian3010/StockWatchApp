@@ -29,7 +29,7 @@ export default function ClosingTasks() {
         <IsLoading />
       ) : (
         <div className="">
-          <h1 className="border-b pt-8 text-lg font-semibold">Complete the following tasks:</h1>
+          <h1 className="border-b pt-20 text-lg font-semibold">Complete the following tasks:</h1>
 
           {/** begin of the list */}
           <TaskImagesUpload tasksList={tasksList} />

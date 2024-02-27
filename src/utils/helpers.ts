@@ -80,11 +80,9 @@ export const compressImageFile = (file: File) => {
 export const getCurrentTime = () => {
   const currentDate = new Date().toLocaleString('en-AU', {
     weekday: 'long',
-    month: 'short',
+    month: 'long',
     day: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true, // Use 12-hour clock
+    year: 'numeric',
   });
   return currentDate;
 };

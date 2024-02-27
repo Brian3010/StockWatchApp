@@ -38,7 +38,7 @@ export default function SubmitedTasksHistory() {
       {isLoading ? (
         <IsLoading />
       ) : (
-        <div className="xl:scrollbar-hide mb-3 pt-10 xl:h-[750px] xl:overflow-scroll">
+        <div className="xl:scrollbar-hide mb-3 pt-20 xl:h-[750px] xl:overflow-scroll">
           {Object.keys(taskImageList).length === 0 ? (
             <div className="flex flex-col items-center gap-2 pt-16">
               <NoDataIcon />

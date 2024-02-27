@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from './components/Footer';
 import TimeAndLocation from './components/TimeAndLocation';
 
 interface menuItem {
@@ -75,7 +76,7 @@ function App() {
     <>
       {/* <div className="flex flex-col justify-center gap-3 pt-10"> */}
       <TimeAndLocation />
-      <h1 className="text-xl font-bold">Dashboard</h1>
+      <h1 className="pb-3 text-xl font-bold">Dashboard</h1>
       <div className="grid gap-2 pt-2 mobileXS:grid-cols-1 mobileS:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-2 ">
         {/** list of items */}
         {menuItems.map((item, index) => (
@@ -91,6 +92,9 @@ function App() {
             {index === menuItems.length - 1 && <div className="absolute right-3 top-2 text-sm font-medium">New 🐣</div>}
           </Link>
         ))}
+      </div>
+      <div className="absolute inset-x-0 bottom-4">
+        <Footer />
       </div>
     </>
   );

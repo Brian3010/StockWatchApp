@@ -1,7 +1,7 @@
 export default function NavBar() {
   return (
-    <nav className="justify-betwee relative flex w-full flex-wrap items-center ">
-      <div className="w-full px-2 py-4">
+    <nav className="relative w-full flex-wrap bg-gami-primary">
+      <div className="w-full px-2 pb-3 pt-2">
         <div className="flex justify-center">
           <p
             className="text-2xl font-semibold text-gami-text "
@@ -9,7 +9,7 @@ export default function NavBar() {
               location.reload();
             }}
           >
-            StockWatch
+            StockWatch <span className="text-xs">1.4</span>
           </p>
         </div>
       </div>
