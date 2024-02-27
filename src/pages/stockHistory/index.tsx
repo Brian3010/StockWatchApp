@@ -33,7 +33,7 @@ export default function StockHistory() {
       <Heading to="../" headerName="Stock History" />
 
       {/** content */}
-      <div className="mt-8 px-1 sm:px-0">
+      <div className="pt-20 px-1 sm:px-0">
         <div className="mb-3 font-medium">
           <label htmlFor="stock-history-date">Select a date: </label>
           <input

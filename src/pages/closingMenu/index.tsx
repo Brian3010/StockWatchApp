@@ -29,7 +29,7 @@ export default function ClosingMenu() {
       {isLoading ? (
         <IsLoading />
       ) : (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 pt-14">
           <div className="mt-10 rounded-md  border shadow-sm">
             <Link className="relative flex flex-col gap-1  p-5" to={`/boh-closing-tasks-menu/closing-tasks`}>
               <span className="font-medium">BOH Checklist</span>
