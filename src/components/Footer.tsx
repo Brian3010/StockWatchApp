@@ -24,7 +24,7 @@ export default function Footer() {
           <img className="w-full" src={socialMediaIcons.GmailIcon} alt="Gmail icon" />
         </a>
       </div>
-      <div className="pt-2 text-center">© 2024 Brian Nguyen. All rights reserved.</div>
+      <div className="pt-2 text-center">&copy; Developed by Brian Nguyen 2024</div>
     </>
   );
 }

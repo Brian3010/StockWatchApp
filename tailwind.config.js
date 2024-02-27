@@ -15,7 +15,8 @@ export default {
     },
     screens: {
       xs: '480px',
-      mobileS:'320px',
+      mobileXS: '0px',
+      mobileS: '350px',
       ...defaultTheme.screens,
     },
   },
