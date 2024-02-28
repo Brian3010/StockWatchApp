@@ -81,7 +81,7 @@ function App() {
         {/** list of items */}
         {menuItems.map((item, index) => (
           <Link
-            className="custom-list-item relative flex aspect-square items-center justify-center font-semibold"
+            className="custom-list-item relative flex aspect-square items-center justify-center font-semibold border"
             to={item.to}
             key={index}
           >

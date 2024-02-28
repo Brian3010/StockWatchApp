@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <>
       <div className="flex flex-col gap-1 p-2">
-        <div className="text-center font-serif text-sm text-gray-500">&copy; Developed by Brian Nguyen 2024</div>
+        <div className="text-center font-serif text-sm text-gray-500">&copy; Developed by Brian 2024</div>
         <div className="m-[10px 0 10px 0] flex justify-center gap-5">
           <a
             className="h-7 w-7"

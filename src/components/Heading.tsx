@@ -7,9 +7,9 @@ interface HeadingProps {
 
 export default function Heading({ to, headerName }: HeadingProps) {
   return (
-    <div className="flex border-b pt-2 pb-3 px-5 bg-gami-primary absolute inset-x-0">
-      <BackButton className="mr-auto" to={to} />
-      <p className="mr-auto text-xl text-gami-text font-semibold">{headerName}</p>
+    <div className="absolute inset-x-0 flex border-b bg-gami-primary px-5 py-3">
+      <BackButton className="grow" to={to} />
+      <p className="grow text-xl font-semibold text-gami-text">{headerName}</p>
     </div>
   );
 }

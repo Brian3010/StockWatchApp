@@ -51,7 +51,7 @@ export default function StockMenu() {
         <IsLoading />
       ) : (
         <>
-          <h1 className="pb-3 pt-20 text-lg font-semibold">Select a count list:</h1>
+          <h1 className="pb-3 pt-20 text-xl font-semibold">Select a count list</h1>
           <div className="rounded-md border">
             {categories &&
               categories.map((c, index) => (
