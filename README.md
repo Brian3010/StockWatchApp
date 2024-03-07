@@ -1,6 +1,6 @@
-# StockWatch: Stock Management and Checklist Verification for Gami Hawthorn restaurant
+# StockWatch: Stock Management and Checklist Verification
 
-StockWatch is an application designed to specifically streamline stock management and checklist verification for Gami Chicken and Beer located in Hawthorn, Victoria. Built using React (TypeScript), Firebase, and Tailwind CSS, StockWatch provides a user-friendly interface for restaurant staff to efficiently manage stock levels and complete checklists.
+StockWatch is an application designed to specifically streamline stock management and checklist verification for **[Gami Chicken and Beer](https://www.gamichicken.com.au/restaurant/hawthorn/) located in Hawthorn, Victoria**. Built using React (TypeScript), Firebase, and Tailwind CSS, StockWatch provides a user-friendly interface for restaurant staff to efficiently manage stock levels and complete checklists.
 
 ## Features
 
@@ -23,39 +23,39 @@ StockWatch is an application designed to specifically streamline stock managemen
 
 - Live demo:
 
-    <video src="./stockWatch-images/StockWatchLiveDemo.mp4" width="400" />
+    <video src="./stockWatch-images/StockWatchLiveDemo.mp4" controls="controls" width="400" />
 
 ## Usage
 
 - **Dashboard**
 
-    <img src="./stockWatch-images/Dashboard.png" width="25%" alt="Dashboard" >
+    <img src="./stockWatch-images/Dashboard.png" width="40%" alt="Dashboard"/>
 
 &nbsp;
 
 - **Use the dashboard to navigate to stock lists to update a specific stock**
 
-    <img src="./stockWatch-images/counting-stock.png" width="25%" alt="couting-stock" >
-    <img src="./stockWatch-images/submited-stock.PNG" width="25%" alt="couting-stock" >
+    <img src="./stockWatch-images/counting-stock.png" width="40%" alt="couting-stock"/>
+    <img src="./stockWatch-images/submited-stock.PNG" width="40%" alt="submited-stock"/>
 
 &nbsp;
 
 - **Stock are recorded and can be viewed by date in *Stock History***
 
-    <img src="./stockWatch-images/Record-by-date.png" width="25%" alt="couting-stock" >
+    <img src="./stockWatch-images/Record-by-date.png" width="40%" alt="record-by-date"/>
 
 &nbsp;
 
 - **Navigate to *Closing Checklists* to complete tasks for the day**
 
-    <img src="./stockWatch-images/tasklist.png" width="25%" alt="couting-stock" >
-    <img src="./stockWatch-images/submited-tasks.png" width="25%" alt="couting-stock" >
+    <img src="./stockWatch-images/tasklist.png" width="40%" alt="tasklist"/>
+    <img src="./stockWatch-images/submited-tasks.png" width="40%" alt="submited-tasks"/>
 
 &nbsp;
 
 - **The user can check if the assigned tasks have been completed properly by clicking *Yesterday Uploads* or *Today Uploads***
 
-    <img src="./stockWatch-images/viewing_tasks.png" width="25%" alt="couting-stock" >
+    <img src="./stockWatch-images/viewing_tasks.png" width="40%" alt="viewing_tasks"/>
 
 &nbsp;
 
