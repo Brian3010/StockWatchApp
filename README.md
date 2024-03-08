@@ -23,7 +23,9 @@ StockWatch is an application designed to specifically streamline stock managemen
 
 - Live demo:
 
-    <video src="./stockWatch-images/StockWatchLiveDemo.mp4" controls="controls" width="400" />
+    <https://www.youtube.com/watch?v=STfpD1Epv-I>
+
+    *Press play to see the video*
 
 ## Usage
 
