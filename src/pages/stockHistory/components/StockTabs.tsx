@@ -28,24 +28,26 @@ export default function StockTabs({ stockLists }: StockTabsProps) {
         />
       </div>
       <Tab.Group>
-        <div className="mb-1 overflow-hidden border-y border-gray-200 ">
+        <div className="mb-2 overflow-hidden border-y border-gray-200 ">
           <Tab.List
             ref={scrollRef}
-            className="scrollbar-hide -mb-px flex w-screen flex-nowrap gap-1 overflow-x-auto font-semibold"
+            className="scrollbar-hide -mb-px flex w-full flex-nowrap gap-1 overflow-x-auto font-semibold touch-none"
           >
             {Object.keys(stockLists).map((stock, index) => (
-              <Tab key={index} as={Fragment}>
-                {({ selected }) => (
-                  /* Use the `selected` state to conditionally style the selected tab. */
-                  <button
-                    className={`inline-block flex-shrink-0 cursor-grab border-b-2 p-3 hover:bg-gray-100 ${
-                      selected ? 'border-blue-700 bg-white text-blue-700' : 'bg-white text-black'
-                    }`}
-                  >
-                    {stockLists[stock]['label']}
-                  </button>
-                )}
-              </Tab>
+              <>
+                <Tab key={index} as={Fragment}>
+                  {({ selected }) => (
+                    /* Use the `selected` state to conditionally style the selected tab. */
+                    <button
+                      className={`inline-block flex-shrink-0 cursor-grab border-b-2 p-3 hover:bg-gray-100 ${
+                        selected ? 'border-blue-700 bg-white text-blue-700' : 'bg-white text-black'
+                      }`}
+                    >
+                      {stockLists[stock]['label']}
+                    </button>
+                  )}
+                </Tab>
+              </>
             ))}
           </Tab.List>
         </div>
@@ -56,7 +58,7 @@ export default function StockTabs({ stockLists }: StockTabsProps) {
                 <thead className="border-b dark:border-neutral-500">
                   <tr className="bg-blue-gray-100 text-gray-700">
                     <th scope="col" className="px-4 py-3">
-                      Name (unit)
+                      Item (unit)
                     </th>
                     <th scope="col" className="px-4 py-3">
                       Quantity
