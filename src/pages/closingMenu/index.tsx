@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import FlashMessage from '../../components/FlashMessage';
 import Heading from '../../components/Heading';
 import IsLoading from '../../components/IsLoading';
-import { TODAY_DATE, YESTERDAY_DATE, isTaskSubmitted } from '../../firebase';
+import { isTaskSubmitted } from '../../firebase/fetchTasks';
+import { TODAY_DATE, YESTERDAY_DATE } from '../../firebase/utils';
 
 export default function ClosingMenu() {
   const [isSubmited, setIsSubmited] = useState<boolean>();

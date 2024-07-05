@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CompressingIcon from '../../../components/CompressingIcon';
-import { PicturesT, uploadTaskImages } from '../../../firebase';
+import { PicturesT, uploadTaskImages } from '../../../firebase/uploadTasks/uploadTaskImages';
 import useFlashMessage from '../../../hooks/useFlashMessage';
 import TaskImageItem from './TaskImageItem';
 

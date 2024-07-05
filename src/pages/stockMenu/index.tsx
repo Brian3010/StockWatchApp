@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllCategories } from '../../firebase';
-import { replaceUnderscore } from '../../utils/helpers';
+import getCategories, {getAllCategoriesT} from '../../firebase/fetchStock/getCategories';
 
 import { Link } from 'react-router-dom';
 import FlashMessage from '../../components/FlashMessage';
@@ -8,7 +7,7 @@ import Heading from '../../components/Heading';
 import IsLoading from '../../components/IsLoading';
 
 export default function StockMenu() {
-  const [categories, setCategories] = useState<{ value: string; label: string; createdAt: string | undefined }[]>();
+  const [categories, setCategories] = useState<getAllCategoriesT>();
   const [isLoading, setIsLoading] = useState(false);
   //* prolly use useContext or localStorage for persistent display num of item
 
@@ -16,17 +15,9 @@ export default function StockMenu() {
     (async () => {
       try {
         setIsLoading(true);
-        const categoryLists = await getAllCategories();
-        // console.log({ categoryLists });
-        setCategories(prev => {
-          prev = categoryLists.map(c => ({
-            value: c.category,
-            label: c.category.charAt(0).toUpperCase() + replaceUnderscore(c.category.slice(1)),
-            createdAt: c.createdAt,
-          }));
-          // console.log({ prev });
-          return prev;
-        });
+        const categoryLists = await getCategories();
+        console.log({ categoryLists });
+        setCategories(categoryLists);
 
         setIsLoading(false);
         // console.log(stock.options);
@@ -55,8 +46,8 @@ export default function StockMenu() {
           <div className="rounded-md border">
             {categories &&
               categories.map((c, index) => (
-                <Link key={index} className="relative flex flex-col gap-1 border-b p-5" to={`/stocks/${c.value}`}>
-                  <span className="font-medium">{c.label}</span>
+                <Link key={index} className="relative flex flex-col gap-1 border-b p-5" to={`/stocks/${c.category}`}>
+                  <span className="font-medium">{c.category}</span>
 
                   <span
                     className={`inline-block w-fit rounded-xl ${c.createdAt ? ` bg-green-200 text-emerald-700` : `bg-gray-200 text-gray-700`}  px-3  py-1 text-xs font-semibold`}

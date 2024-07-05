@@ -1,10 +1,11 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import IsLoading from '../../../components/IsLoading';
-import { GetStockCountByCategoryT, updateOrAddStockCount } from '../../../firebase';
+import { GetStockCountByCategoryT} from '../../../firebase/fetchStock/getStockCountByCategory';
 import useFlashMessage from '../../../hooks/useFlashMessage';
 import useFormInputs from '../../../hooks/useInputFields';
 import { excludeUnit, replaceUnderscore, validateStockFormInputs } from '../../../utils/helpers';
+import { updateOrAddStockCount } from '../../../firebase/updateStock/updateStockCount';
 
 interface FormsProps {
   stock: GetStockCountByCategoryT;

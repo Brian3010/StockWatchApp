@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import Heading from '../../components/Heading';
 import IsLoading from '../../components/IsLoading';
 import NoDataIcon from '../../components/NoDataIcon';
-import { TaskImagesByDateResT, getBOHTasks, getTaskImagesByDate } from '../../firebase';
+import { getBOHTasks } from '../../firebase/fetchTasks/getBOHTasks';
+import { getTaskImagesByDate, TaskImagesByDateResT } from '../../firebase/fetchTasks/getTaskImagesByDate';
 import TaskImageDisplay from './components/TaskImageDisplay';
 
 export default function SubmitedTasksHistory() {

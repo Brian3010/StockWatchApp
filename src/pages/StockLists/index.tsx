@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Heading from '../../components/Heading';
 import IsLoading from '../../components/IsLoading';
-import { GetStockCountByCategoryT, getStockCountByCategory } from '../../firebase';
+import getStockCountByCategory, { GetStockCountByCategoryT } from '../../firebase/fetchStock/getStockCountByCategory';
 import { replaceUnderscore } from '../../utils/helpers';
 import Forms from './components/Forms';
 

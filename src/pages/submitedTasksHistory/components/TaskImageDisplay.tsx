@@ -1,4 +1,4 @@
-import { TaskImagesByDateResT } from '../../../firebase';
+import { TaskImagesByDateResT } from "../../../firebase/fetchTasks/getTaskImagesByDate";
 
 interface TaskImageDisplayProps {
   taskNames: string[];

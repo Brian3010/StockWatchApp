@@ -1,6 +1,6 @@
 import { Tab } from '@headlessui/react';
 import { Fragment, useState } from 'react';
-import { GetStockListsByDateT } from '../../../firebase';
+import { GetStockListsByDateT } from '../../../firebase/fetchStock/getStockListByDate';
 import { useHorizontalScroll } from '../../../hooks/useHorizontalScroll';
 import TBodyRow from './TBodyRow';
 
