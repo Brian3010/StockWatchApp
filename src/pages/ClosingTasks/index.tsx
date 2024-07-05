@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import Heading from '../../components/Heading';
 import IsLoading from '../../components/IsLoading';
-import { getBOHTasks } from '../../firebase';
 import TaskImagesUpload from './components/TaskImagesUpload';
+import { getBOHTasks } from '../../firebase/fetchTasks/getBOHTasks';
 
 export default function ClosingTasks() {
   const [tasksList, setTasksList] = useState<string[]>([]);

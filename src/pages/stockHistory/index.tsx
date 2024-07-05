@@ -2,9 +2,9 @@ import { ChangeEventHandler, useState } from 'react';
 import Heading from '../../components/Heading';
 import IsLoading from '../../components/IsLoading';
 import NoDataIcon from '../../components/NoDataIcon';
-import { GetStockListsByDateT, getStockListsByDate } from '../../firebase';
 import { isObjectEmpty } from '../../utils/helpers';
 import StockTabs from './components/StockTabs';
+import getStockListsByDate, { GetStockListsByDateT } from '../../firebase/fetchStock/getStockListByDate';
 
 export default function StockHistory() {
   const [stockLists, setStockLists] = useState<GetStockListsByDateT>();
