@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import IsLoading from '../../../components/IsLoading';
-import { GetStockCountByCategoryT} from '../../../firebase/fetchStock/getStockCountByCategory';
+import { GetStockCountByCategoryT } from '../../../firebase/fetchStock/getStockCountByCategory';
 import useFlashMessage from '../../../hooks/useFlashMessage';
 import useFormInputs from '../../../hooks/useInputFields';
 import { excludeUnit, replaceUnderscore, validateStockFormInputs } from '../../../utils/helpers';
@@ -13,6 +13,7 @@ interface FormsProps {
 
 export default function Forms({ stock }: FormsProps) {
   const { category } = useParams();
+
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const { setFlashMessage } = useFlashMessage();
@@ -31,12 +32,25 @@ export default function Forms({ stock }: FormsProps) {
         });
         return Object.assign({}, ...arrayOfObjects);
       });
+    } else {
+      console.log({stock});
     }
 
     return () => {
       setFormInputs(undefined);
     };
   }, [setFormInputs, stock.todayCount]);
+
+  // useEffect(() => {
+  //   (() => {
+  //     if (category && category.includes("Front List")) {
+       
+        
+  //    }
+      
+
+  //   })();
+  // }, [category]);
 
   const handleOnInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     // console.log(event.target);

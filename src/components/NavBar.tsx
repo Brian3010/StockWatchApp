@@ -9,7 +9,7 @@ export default function NavBar() {
               location.reload();
             }}
           >
-            StockWatch <span className="text-xs">1.4</span>
+            StockWatch <span className="text-xs">1.4.1</span>
           </p>
         </div>
       </div>
