@@ -1,17 +1,19 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import IsLoading from '../../../components/IsLoading';
+import getFohDefCountByCategory from '../../../firebase/fetchStock/getFohDefCountByCategory';
 import { GetStockCountByCategoryT } from '../../../firebase/fetchStock/getStockCountByCategory';
+import updateFrontStock from '../../../firebase/updateStock/updateFrontStock';
+import { updateOrAddStockCount } from '../../../firebase/updateStock/updateStockCount';
 import useFlashMessage from '../../../hooks/useFlashMessage';
 import useFormInputs from '../../../hooks/useInputFields';
 import { excludeUnit, replaceUnderscore, validateStockFormInputs } from '../../../utils/helpers';
-import { updateOrAddStockCount } from '../../../firebase/updateStock/updateStockCount';
 
-interface FormsProps {
+interface FrontFormProps {
   stock: GetStockCountByCategoryT;
 }
 
-export default function Forms({ stock }: FormsProps) {
+export default function FrontForm({ stock }: FrontFormProps) {
   const { category } = useParams();
 
   const navigate = useNavigate();
@@ -24,6 +26,11 @@ export default function Forms({ stock }: FormsProps) {
   const { formInputs, setFormInputs } = useFormInputs();
 
   useEffect(() => {
+    (async () => {
+      const res = await getFohDefCountByCategory(category!);
+      stock.yesterdayCount = res;
+    })();
+
     if (stock.todayCount) {
       const todayStock = stock.todayCount;
       setFormInputs(() => {
@@ -32,22 +39,16 @@ export default function Forms({ stock }: FormsProps) {
         });
         return Object.assign({}, ...arrayOfObjects);
       });
-    } else {
-      console.log({stock});
     }
 
     return () => {
       setFormInputs(undefined);
     };
-  }, [setFormInputs, stock, stock.todayCount]);
+  }, [category, setFormInputs, stock, stock.todayCount]);
 
   // useEffect(() => {
-  //   (() => {
-  //     if (category && category.includes("Front List")) {
-       
-        
-  //    }
-      
+  //   (async () => {
+  //     const res = await getFohDefCountByCategory(category!);
 
   //   })();
   // }, [category]);
@@ -71,6 +72,8 @@ export default function Forms({ stock }: FormsProps) {
     try {
       setIsLoading(true);
       const res = await updateOrAddStockCount(category!, formInputs!);
+      // update default field in Firebase
+      await updateFrontStock(category!, formInputs!);
       // console.log(res);
       setIsLoading(false);
       setFlashMessage({ message: res.toString(), type: 'success' });
@@ -114,8 +117,7 @@ export default function Forms({ stock }: FormsProps) {
                   />
                 </div>
                 <p className="py-1 text-sm font-medium text-gray-700">
-                  Yesterday's count:{' '}
-                  {stock.yesterdayCount ? `${stock.yesterdayCount[excludeUnit(item)]}` : 'Not Available'}
+                  Last count: {stock.yesterdayCount ? `${stock.yesterdayCount[excludeUnit(item)]}` : 'Not Available'}
                 </p>
               </div>
             ))}
