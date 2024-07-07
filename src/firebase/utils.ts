@@ -59,6 +59,8 @@ export const hasTodayStockByCategory = (docId: string) => {
   });
 };
 
+
+
 // // update stock by category/docId
 // export const updateStockCount = async (docId: string, items: DocumentData) => {
 //   return new Promise((resolve, reject) => {

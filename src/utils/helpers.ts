@@ -1,5 +1,5 @@
 import imageCompression, { Options } from 'browser-image-compression';
-import { DocumentData } from 'firebase/firestore';
+import { DocumentData, Timestamp } from 'firebase/firestore';
 
 export const replaceUnderscore = (string: string) => string.replace(/_/g, ' ');
 
@@ -86,3 +86,6 @@ export const getCurrentTime = () => {
   });
   return currentDate;
 };
+
+export const convertTimeStampToDate = (timeStamp: Timestamp) =>
+  timeStamp.toDate().toLocaleString('en-AU', { day: '2-digit', month: 'short', year: '2-digit', });

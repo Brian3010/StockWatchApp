@@ -7,7 +7,7 @@ import updateFrontStock from '../../../firebase/updateStock/updateFrontStock';
 import { updateOrAddStockCount } from '../../../firebase/updateStock/updateStockCount';
 import useFlashMessage from '../../../hooks/useFlashMessage';
 import useFormInputs from '../../../hooks/useInputFields';
-import { excludeUnit, replaceUnderscore, validateStockFormInputs } from '../../../utils/helpers';
+import { convertTimeStampToDate, excludeUnit, replaceUnderscore, validateStockFormInputs } from '../../../utils/helpers';
 
 interface FrontFormProps {
   stock: GetStockCountByCategoryT;
@@ -28,7 +28,9 @@ export default function FrontForm({ stock }: FrontFormProps) {
   useEffect(() => {
     (async () => {
       const res = await getFohDefCountByCategory(category!);
+      // assign the last front stock to yesterday, so no need to modify the variable's name
       stock.yesterdayCount = res;
+      console.log({frontStock: convertTimeStampToDate(stock.yesterdayCount['createdAt'])});
     })();
 
     if (stock.todayCount) {
@@ -117,7 +119,7 @@ export default function FrontForm({ stock }: FrontFormProps) {
                   />
                 </div>
                 <p className="py-1 text-sm font-medium text-gray-700">
-                  Last count: {stock.yesterdayCount ? `${stock.yesterdayCount[excludeUnit(item)]}` : 'Not Available'}
+                  {convertTimeStampToDate(stock.yesterdayCount['createdAt'])} Count: {stock.yesterdayCount ? `${stock.yesterdayCount[excludeUnit(item)]}` : 'Not Available'}
                 </p>
               </div>
             ))}
