@@ -119,7 +119,7 @@ export default function FrontForm({ stock }: FrontFormProps) {
                   />
                 </div>
                 <p className="py-1 text-sm font-medium text-gray-700">
-                  {convertTimeStampToDate(stock.yesterdayCount['createdAt'])} Count: {stock.yesterdayCount ? `${stock.yesterdayCount[excludeUnit(item)]}` : 'Not Available'}
+                  {convertTimeStampToDate(stock.yesterdayCount['createdAt'])} count: {stock.yesterdayCount ? `${stock.yesterdayCount[excludeUnit(item)]}` : 'Not Available'}
                 </p>
               </div>
             ))}

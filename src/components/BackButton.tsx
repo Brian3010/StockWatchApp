@@ -14,13 +14,13 @@ export default function BackButton({ to, className }: BackButtonProps) {
     <button onClick={handleClick} className={`flex items-center font-medium ${className}`}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
+        className="h-7 w-7"
         fill="none"
         viewBox="0 0 24 24"
-        strokeWidth={1.5}
         stroke="currentColor"
-        className="h-6 w-6"
+        strokeWidth="2"
       >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
       </svg>
 
       {/* <span>Go back</span> */}

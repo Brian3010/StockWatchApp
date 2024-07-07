@@ -17,7 +17,7 @@ export default function TimeAndLocation() {
 
   return (
     <div className="flex flex-wrap justify-between gap-2 pb-6 pt-5 text-sm font-medium">
-      <span className="unde text-base">{currentDate}</span>
+      <span className="underline text-base">{currentDate}</span>
       <span className="flex items-center underline ">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="mb-1 h-4 w-4">
           <path
