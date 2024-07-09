@@ -1,3 +1,4 @@
+import { DocumentData } from 'firebase/firestore';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import IsLoading from '../../../components/IsLoading';
@@ -7,7 +8,12 @@ import updateFrontStock from '../../../firebase/updateStock/updateFrontStock';
 import { updateOrAddStockCount } from '../../../firebase/updateStock/updateStockCount';
 import useFlashMessage from '../../../hooks/useFlashMessage';
 import useFormInputs from '../../../hooks/useInputFields';
-import { convertTimeStampToDate, excludeUnit, replaceUnderscore, validateStockFormInputs } from '../../../utils/helpers';
+import {
+  convertTimeStampToDate,
+  excludeUnit,
+  replaceUnderscore,
+  validateStockFormInputs,
+} from '../../../utils/helpers';
 
 interface FrontFormProps {
   stock: GetStockCountByCategoryT;
@@ -15,7 +21,7 @@ interface FrontFormProps {
 
 export default function FrontForm({ stock }: FrontFormProps) {
   const { category } = useParams();
-
+  const [lastStock, setLastStock] = useState<DocumentData>();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const { setFlashMessage } = useFlashMessage();
@@ -29,10 +35,15 @@ export default function FrontForm({ stock }: FrontFormProps) {
     (async () => {
       const res = await getFohDefCountByCategory(category!);
       // assign the last front stock to yesterday, so no need to modify the variable's name
-      stock.yesterdayCount = res;
-      console.log({frontStock: convertTimeStampToDate(stock.yesterdayCount['createdAt'])});
+      // stock.yesterdayCount = res;
+      setLastStock(res);
+      console.log({ res: stock.yesterdayCount });
     })();
 
+
+  }, [category, stock.yesterdayCount]);
+
+  useEffect(() => {
     if (stock.todayCount) {
       const todayStock = stock.todayCount;
       setFormInputs(() => {
@@ -46,14 +57,7 @@ export default function FrontForm({ stock }: FrontFormProps) {
     return () => {
       setFormInputs(undefined);
     };
-  }, [category, setFormInputs, stock, stock.todayCount]);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const res = await getFohDefCountByCategory(category!);
-
-  //   })();
-  // }, [category]);
+  }, [category, setFormInputs, stock]);
 
   const handleOnInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     // console.log(event.target);
@@ -91,13 +95,13 @@ export default function FrontForm({ stock }: FrontFormProps) {
       {isLoading ? (
         <IsLoading />
       ) : (
-        <form action="" onSubmit={handleSubmit}>
+        lastStock && <form action="" onSubmit={handleSubmit}>
           <div className="flex justify-between border-b bg-neutral-100 p-1 py-3 font-bold ">
             <span>Name</span>
             <span className="pr-9">No.</span>
           </div>
           <div className="xl:scrollbar-hide xl:h-[670px] xl:overflow-scroll">
-            {stock.itemNames.map((item, index) => (
+            {lastStock && stock.itemNames.map((item, index) => (
               <div key={index} className="border-b p-1 py-3">
                 <div className="flex justify-between">
                   <label className="font-semibold" htmlFor={excludeUnit(item)}>
@@ -119,7 +123,7 @@ export default function FrontForm({ stock }: FrontFormProps) {
                   />
                 </div>
                 <p className="py-1 text-sm font-medium text-gray-700">
-                  {convertTimeStampToDate(stock.yesterdayCount['createdAt'])} count: {stock.yesterdayCount ? `${stock.yesterdayCount[excludeUnit(item)]}` : 'Not Available'}
+                  {convertTimeStampToDate(lastStock['createdAt'])} count: {lastStock ? `${lastStock[excludeUnit(item)]}` : 'Not Available'}
                 </p>
               </div>
             ))}
