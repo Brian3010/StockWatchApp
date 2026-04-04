@@ -1,6 +1,6 @@
 # StockWatch
 
-> A full-stack inventory management and task verification web application built for a real-world restaurant client.
+**A real-world inventory management and shift task verification app built for a restaurant client — deployed and actively used in production.**
 
 [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -10,155 +10,143 @@
 
 ---
 
-## Overview
+## Demo / Screenshots
 
-StockWatch was built to solve a real operational problem at **[Gami Chicken and Beer (Hawthorn, VIC)](https://www.gamichicken.com.au/restaurant/hawthorn/)** — manually tracking daily stock counts and closing tasks was error-prone and time-consuming. This app replaces paper-based processes with a mobile-friendly web interface that restaurant staff use every shift.
+▶️ [Watch the full video walkthrough](https://www.youtube.com/watch?v=STfpD1Epv-I)
 
-The project demonstrates end-to-end ownership: requirements gathering from a real client, UI/UX design, full-stack development, and cloud deployment.
+| Dashboard | Stock Entry | Stock History |
+|---|---|---|
+| <img src="./stockWatch-images/Dashboard.png" width="250" alt="Dashboard"/> | <img src="./stockWatch-images/counting-stock.png" width="250" alt="Counting stock"/> | <img src="./stockWatch-images/Record-by-date.png" width="250" alt="Stock history"/> |
+
+| Closing Checklist | Submitted Tasks | Photo Review |
+|---|---|---|
+| <img src="./stockWatch-images/tasklist.png" width="250" alt="Task list"/> | <img src="./stockWatch-images/submited-tasks.png" width="250" alt="Submitted tasks"/> | <img src="./stockWatch-images/viewing_tasks.png" width="250" alt="Photo review"/> |
 
 ---
 
-## Key Features
+## Features
 
-| Feature | Description |
-|---|---|
-| 📦 **Real-time Inventory Tracking** | Staff update stock quantities directly from their phones; changes sync instantly via Firestore. |
-| 📅 **Inventory History by Date** | Managers can browse past stock submissions filtered by date for accountability and auditing. |
-| ✅ **Closing Checklist with Photo Verification** | Staff mark tasks complete and upload photos as proof; managers can review today's and yesterday's uploads. |
-| 🖼️ **Client-side Image Compression** | Photos are compressed in the browser before uploading to Firebase Storage, reducing storage costs and improving upload speed. |
-| ⚡ **Responsive Mobile-first Design** | Fully usable on phones — the primary device used by kitchen staff during their shift. |
+- 📦 **Real-time stock tracking** — staff update quantities on their phones; Firestore syncs instantly
+- 📅 **Inventory history by date** — managers review and audit past stock submissions at any time
+- ✅ **Closing checklist** — end-of-shift task list with photo upload for proof of completion
+- 🖼️ **Client-side image compression** — photos compressed in-browser before upload, reducing storage costs
+- 📱 **Mobile-first responsive UI** — designed for kitchen staff using phones during a shift
+- ⚡ **Flash notification system** — global success/error feedback delivered via React Context
 
 ---
 
 ## Tech Stack
 
-### Frontend
-- **React 18** with **TypeScript** — component-based UI with strong typing
-- **React Router v6** — client-side routing with nested layouts
-- **Tailwind CSS** — utility-first styling with a custom responsive grid
-- **Headless UI** — accessible UI primitives (dropdowns, dialogs)
-- **Vite** — fast development server and optimised production builds
+**Frontend**
+- React 18 + TypeScript
+- React Router v6 (nested layouts)
+- Tailwind CSS (utility-first, custom responsive breakpoints)
+- Headless UI (accessible component primitives)
+- Vite (dev server + optimised builds)
 
-### Backend & Infrastructure
-- **Firebase Firestore** — NoSQL real-time database for stock and task records
-- **Firebase Storage** — cloud storage for task verification photos
-- **Firebase Hosting** — production deployment via CLI
+**Backend & Cloud**
+- Firebase Firestore (real-time NoSQL database)
+- Firebase Storage (photo uploads)
+- Firebase Hosting (production deployment)
 
-### Tooling
-- **ESLint** + **Prettier** — enforced code style and linting
-- **browser-image-compression** — client-side image optimisation before upload
-
----
-
-## Architecture Highlights
-
-- **Custom React Hooks** — reusable logic extracted into `useInputFields`, `useFlashMessage`, and `useHorizontalScroll` to keep components clean.
-- **Context API** — `FlashMessageProvider` delivers global UI feedback (success/error toasts) across the component tree without prop drilling.
-- **Modular Firebase layer** — all Firestore and Storage calls are separated into dedicated modules (`fetchStock`, `fetchTasks`, `updateStock`, `uploadTasks`), keeping business logic out of components.
-- **Type-safe throughout** — TypeScript interfaces are defined for all data models, API responses, and component props.
+**Tooling**
+- ESLint + Prettier (enforced code style)
+- browser-image-compression (client-side image optimisation)
 
 ---
 
-## Demo
+## Architecture / How It Works
 
-▶️ Watch the full walkthrough:
+```
+src/
+├── components/       # Shared UI components (NavBar, Footer, FlashMessage, etc.)
+├── context/          # React Context providers (FlashMessageProvider)
+├── firebase/         # Firebase config + modular data access layer
+│   ├── fetchStock/   # Firestore read operations for stock data
+│   ├── fetchTasks/   # Firestore read operations for task data
+│   ├── updateStock/  # Firestore write operations for stock
+│   └── uploadTasks/  # Firebase Storage + Firestore writes for tasks
+├── hooks/            # Custom hooks (useInputFields, useFlashMessage, useHorizontalScroll)
+├── pages/            # Route-level page components
+└── utils/            # Shared utility functions
+```
 
-[![StockWatch Demo](http://img.youtube.com/vi/STfpD1Epv-I/0.jpg)](https://www.youtube.com/watch?v=STfpD1Epv-I)
-
----
-
-## Screenshots
-
-**Dashboard**
-
-<img src="./stockWatch-images/Dashboard.png" width="45%" alt="Dashboard"/>
-
-&nbsp;
-
-**Stock List — Counting & Submitting Stock**
-
-<img src="./stockWatch-images/counting-stock.png" width="45%" alt="Counting stock"/>
-<img src="./stockWatch-images/submited-stock.PNG" width="45%" alt="Submitted stock"/>
-
-&nbsp;
-
-**Stock History — Browse Records by Date**
-
-<img src="./stockWatch-images/Record-by-date.png" width="45%" alt="Record by date"/>
-
-&nbsp;
-
-**Closing Checklist — Task List & Submission**
-
-<img src="./stockWatch-images/tasklist.png" width="45%" alt="Task list"/>
-<img src="./stockWatch-images/submited-tasks.png" width="45%" alt="Submitted tasks"/>
-
-&nbsp;
-
-**Closing Checklist — Reviewing Uploaded Photos**
-
-<img src="./stockWatch-images/viewing_tasks.png" width="45%" alt="Viewing uploaded tasks"/>
+**Key patterns:**
+- **Separation of concerns** — all Firebase calls live in a dedicated data layer; pages and components contain no direct Firestore logic
+- **Custom hooks** — form state, scroll behaviour, and flash notifications are each encapsulated in their own hook
+- **Context API** — `FlashMessageProvider` wraps the app to deliver typed success/error messages globally without prop drilling
+- **TypeScript throughout** — interfaces defined for all Firestore data models, component props, and context types
 
 ---
 
 ## Getting Started
 
-### Prerequisites
+**Prerequisites:** Node.js ≥ 18, a Firebase project with Firestore and Storage enabled.
 
-- Node.js ≥ 18
-- A Firebase project with Firestore and Storage enabled
+```bash
+# 1. Clone the repo
+git clone https://github.com/Brian3010/StockWatchApp.git
+cd StockWatchApp
 
-### Installation
+# 2. Install dependencies
+npm install
 
-1. Clone the repository:
+# 3. Add your Firebase config
+cp .env.example .env   # then fill in your values
+```
 
-   ```bash
-   git clone https://github.com/Brian3010/StockWatchApp.git
-   cd StockWatchApp
-   ```
+`.env` variables required:
 
-2. Install dependencies:
+```env
+VITE_FIREBASE_APIKEY=your_api_key
+```
 
-   ```bash
-   npm install
-   ```
-
-3. Create a `.env` file in the project root and add your Firebase config:
-
-   ```env
-   VITE_FIREBASE_API_KEY=your_api_key
-   VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
-   VITE_FIREBASE_PROJECT_ID=your_project_id
-   VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
-   VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-   VITE_FIREBASE_APP_ID=your_app_id
-   ```
-
-4. Start the development server:
-
-   ```bash
-   npm run dev
-   ```
-
-5. Open [http://localhost:5173](http://localhost:5173) in your browser.
+```bash
+# 4. Start the dev server
+npm run dev
+# → http://localhost:5173
+```
 
 ---
 
-## Scripts
+## Usage
 
-| Command | Description |
+| Script | Description |
 |---|---|
-| `npm run dev` | Start the Vite development server |
+| `npm run dev` | Start local development server |
 | `npm run build` | Type-check and build for production |
-| `npm run preview` | Preview the production build locally |
+| `npm run preview` | Preview production build locally |
 | `npm run lint` | Run ESLint across all TypeScript files |
 
 ---
 
-## Contact
+## Why This Project Matters
 
-I'm actively looking for opportunities as a software developer. Feel free to reach out!
+Restaurant staff at [Gami Chicken and Beer (Hawthorn)](https://www.gamichicken.com.au/restaurant/hawthorn/) previously tracked stock and closing tasks manually on paper — a slow, error-prone process with no audit trail.
 
-- **Email:** [briannguyenwg@gmail.com](mailto:briannguyenwg@gmail.com)
-- **LinkedIn:** [linkedin.com/in/brian-nguyen-411483196](https://www.linkedin.com/in/brian-nguyen-411483196/)
-- **GitHub:** [github.com/Brian3010](https://github.com/Brian3010)
+StockWatch replaces that entirely. It was scoped, designed, built, and deployed by a single developer based on real requirements from a real client. The app is production-hosted and used by staff every shift.
+
+This project demonstrates the ability to:
+- Translate real-world business problems into working software
+- Own the full stack from UI to cloud infrastructure
+- Make pragmatic architectural decisions (e.g. BaaS over a custom API for a small team)
+- Ship and maintain a production application
+
+---
+
+## Future Improvements
+
+- 🔐 **Authentication** — role-based access (manager vs. staff views)
+- 📊 **Analytics dashboard** — visualise stock trends over time
+- 🔔 **Push notifications** — alert managers when tasks are overdue
+- 🧪 **Unit & integration tests** — expand test coverage with Vitest + Testing Library
+
+---
+
+## Author
+
+**Brian Nguyen**
+
+- 📧 [briannguyenwg@gmail.com](mailto:briannguyenwg@gmail.com)
+- 💼 [LinkedIn](https://www.linkedin.com/in/brian-nguyen-411483196/)
+- 🐙 [GitHub](https://github.com/Brian3010)
